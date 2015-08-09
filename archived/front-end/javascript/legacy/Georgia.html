@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- <!DOCTYPE HTML> -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+html {
+	height: 100%;
+	font-family: Georgia "Times New Roman" serif;
+}
+
+body {
+	width: 1500px;
+ 	height: 1600px;
+}
+
+::-moz-selection {
+	background: #fe4902;
+	color: white; /* Firefox */
+}
+
+::selection {
+	background: #fe4902;
+	color: white; /* Opera,Safari,Chrome */
+}
+
+#container {
+	width: 1000px;
+	margin: 50px auto;
+	font-size: 20px;
+}
+
+div {
+	text-align: center;
+}
+
+div.item {
+	margin-bottom: 5px;
+	overflow: auto;
+}
+
+h3.title {
+	text-align: center;
+	font-family: "Microsoft YaHei";
+}
+
+div.left {
+	float: left;
+	width: 49.9%;
+}
+
+div.right {
+	float: right;
+	width: 49.9%;
+}
+
+.normal {
+	margin: 0 0 2px 0;
+	background-color: #5F9EA0;
+}
+</style>
+</head>
+<body>
+	<div id="container"></div>
+	<script>
+		var c = document.getElementById("container");
+
+		function addItem(titleMsg, leftInfo, leftNote, rightInfo, rightNote) {
+			var itemDiv = document.createElement("div");
+			itemDiv.className = "item";
+			var title = document.createElement("h3");
+			title.innerHTML = titleMsg;
+			title.className = "title normal";
+			itemDiv.appendChild(title);
+
+			var leftDiv = document.createElement("div");
+			leftDiv.className = "left";
+			var leftSpan1 = document.createElement("div");
+			leftSpan1.innerHTML = leftInfo + " : " + eval(leftInfo);
+			leftSpan1.className = "normal";
+			var leftSpan2 = document.createElement("div");
+			leftSpan2.innerHTML = leftNote;
+			leftSpan2.className = "normal";
+			leftDiv.appendChild(leftSpan1);
+			leftDiv.appendChild(leftSpan2);
+
+			var rightDiv = document.createElement("div");
+			rightDiv.className = "right";
+			var rightSpan1 = document.createElement("div");
+			rightSpan1.innerHTML = rightInfo + ": " + eval(rightInfo);
+			rightSpan1.className = "normal";
+			var rightSpan2 = document.createElement("div");
+			rightSpan2.innerHTML = rightNote;
+			rightSpan2.className = "normal";
+			rightDiv.appendChild(rightSpan1);
+			rightDiv.appendChild(rightSpan2);
+
+			itemDiv.appendChild(leftDiv);
+			itemDiv.appendChild(rightDiv);
+
+			c.appendChild(itemDiv);
+		}
+		/**
+		 * 变：value会随着浏览器类型和网页标准的不同而不同
+		 * 新：HTML 5 新标准下有效
+		 * 旧：HTML 4 旧标准下有效
+		 */
+		function calculator() {
+			removeAll(c);
+			addItem("window可视区大小", "window.innerWidth", "无视滚动条", "window.innerHeight", "无视滚动条");
+			/**
+			 * 非IE浏览器（Chrome，Firefox）中document.body.client*的值会根据html标准的不同而不同，具体来说，旧标准（html 4）下document.body.client*获取网页可视区大小，
+			 * 新标准（html 5）下document.body.client*获取body区域大小（不计算margin），相当于获取document.body.offset*的值。
+			 * IE9,10下document.body.client*始终获取body区域大小（不计算margin），相当于获取document.body.offset*的值。
+			 * 获取网页可视区大小最好使用document.documentElement.client*，它在任何一种浏览器的新旧标准下都是获取网页可视区大小。
+			 */
+			addItem("网页可视区大小Viewport【变】", "document.body.clientWidth", "window.innerWidth - 17（滚动条）", "document.body.clientHeight", "window.innerWidth - 17（滚动条）");
+			addItem("网页可视区大小Viewport（通用，推荐）", "document.documentElement.clientWidth", "window.innerWidth - 17（滚动条）", "document.documentElement.clientHeight", "window.innerWidth - 17（滚动条）");
+			addItem("body区域大小（不计算margin）", "document.body.offsetWidth", "", "document.body.offsetHeight", "");
+			addItem("body区域大小 + margin【变】", "document.body.scrollWidth", "", "document.body.scrollHeight", "");
+			addItem("body区域大小 + margin【变】", "document.documentElement.scrollWidth", "", "document.documentElement.scrollHeight", "");
+			addItem("消失的scroll部分大小（Chrome，Firefox【旧】，IE10【旧】）", "document.body.scrollTop", "", "document.body.scrollLeft", "");
+			addItem("消失的scroll部分大小（Firefox【新】，IE10）", "document.documentElement.scrollTop", "", "document.documentElement.scrollLeft", "");
+			addItem("屏幕的分辨率大小", "window.screen.width", "", "window.screen.height", "");
+			addItem("屏幕可用区域大小", "window.screen.availWidth", "扣除Windows的62px菜单栏", "window.screen.availHeight", "扣除Windows的30px菜单栏");
+		}
+		function removeAll(p) {
+			if (p) {
+				while (p.firstChild) {
+					p.removeChild(p.firstChild);
+				}
+			}
+		}
+		document.body.onload = calculator;
+		document.body.onclick = calculator;
+	</script>
+
+</body>
+</html>

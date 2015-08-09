@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Js黑客帝国效果 文字向下落</title>
+<!-- http://www.cnblogs.com/dtdxrk/archive/2012/08/02/2620416.html -->
+<style type="text/css">
+body {
+	background-color: #000;
+	margin: 0;
+	padding: 0;
+	font-family: Arial;
+	color: #008800;
+ 	line-height: 0.9;
+	overflow: hidden;
+}
+
+div {
+	width: 5px;
+	word-wrap: break-word;
+	position: absolute;
+}
+</style>
+<body>
+
+	<script type="text/javascript">
+		/*
+		    Js黑客帝国效果 文字向下落制作过程和思路
+		
+		    1.css控制文字竖显示
+		    2.动态添加div 用随机数当文本 
+		    3.获取分辨率 把div随机分布到屏幕里
+		    4.随机文字的大小和透明度
+		    5.用setInterval定时替换文本 改变div的top值
+		    6.定时生产div 当div移出显示范围时删除
+		
+		    效果不错 缺点就是太消耗资源
+		    chrome ie运行不错 ff有点卡
+		 */
+		var TheMatrix = {
+			height : document.documentElement.clientHeight, //浏览器高
+			width : document.documentElement.clientWidth, //浏览器宽
+// 			height : window.screen.height, //浏览器高
+// 			width : window.screen.width, //浏览器宽
+			speed : 35, //下降速度
+			createDIV : function() { //生成div
+				var div = document.createElement("div");
+				var posy = 0;
+				div.style.left = Math.round(Math.random() * TheMatrix.width) + "px";
+				div.style.fontSize = Math.round(Math.random() * 50) + "px";
+				div.style.opacity = Math.random().toFixed(1);
+				div.innerHTML = Math.round(Math.random() * 100000000000000000);
+				document.body.appendChild(div);
+				var start = div.offsetHeight;
+				var moveDIV = setInterval(function() {
+					div.innerHTML = Math.round(Math.random() * 100000000000000000);
+					div.style.top = posy - start + "px";
+					posy += TheMatrix.speed;
+					if (parseInt(div.style.top) > TheMatrix.height) {
+						document.body.removeChild(div);
+						clearInterval(moveDIV);
+					}
+				}, 20);
+			}
+		}
+		setInterval("TheMatrix.createDIV()", 20)
+	</script>
+
+</body>
+</html>

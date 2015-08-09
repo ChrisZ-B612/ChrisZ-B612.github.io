@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Fancy CSS3 Pull-Quotes</title>
+<style type="text/css">
+.has-pullquote:before { /* Reset metrics. */
+	padding: 0;
+	border: none;
+	/* Content */
+	content: attr(data-pullquote);
+	/* Pull out to the right, modular scale based margins. */
+	float: right;
+	width: 320px;
+	margin: 12px -140px 24px 36px;
+	/* Baseline correction */
+	position: relative;
+	top: 5px;
+	/* Typography (30px line-height equals 25% incremental leading) */
+	font-size: 23px;
+	line-height: 30px;
+}
+
+.pullquote-adelle:before {
+	font-family: "adelle-1", "adelle-2";
+	font-weight: 100;
+	top: 10px !important;
+}
+
+.pullquote-helvetica:before {
+	font-family: "Helvetica Neue", Arial, sans-serif;
+	font-weight: bold;
+	top: 7px !important;
+}
+
+.pullquote-facit:before {
+	font-family: "facitweb-1", "facitweb-2", Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	top: 7px !important;
+}
+
+p {
+	width: 1000px;
+}
+</style>
+</head>
+<body>
+	<p class="has-pullquote pullquote-adelle"
+		data-pullquote="A pull quote is a purely visual technique, and therefore should not change the structure of the body.">
+		Blatantly copying the excerpt of the pull quote into it’s own element
+		is not the way to go. A pull quote is a purely visual technique, and
+		therefore should not change the structure of the body. Next to that, a
+		structural representation of the excerpt would be seen twice by people
+		using feed readers or services like <a
+			href="http://www.instapaper.com/">Instapaper</a>, as well as be
+		re-read for people who use screen readers. So how can we best author
+		this into our mark-up?
+	</p>
+</body>
+</html>

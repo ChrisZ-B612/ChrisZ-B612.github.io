@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DOMContentLoaded</title>
+<style type="text/css">
+img {
+	width: 300px;
+	height: 200px;
+}
+</style>
+</head>
+<body>
+	<img name="img1" alt="" src="http://ie.microsoft.com/TEStdrive/HTML5/DOMContentLoaded/whidbey.jpg">
+	<img name="img2" alt="" src="http://ie.microsoft.com/TEStdrive/HTML5/DOMContentLoaded/window1.jpg">
+	<img name="img3" alt="" src="http://ie.microsoft.com/TEStdrive/HTML5/DOMContentLoaded/whidbey2.jpg">
+	<script type="text/javascript">
+		document.images.img2.onerror = function() {
+			console.info("Shit happens.");
+		}
+		var img1 = document.images.img1;
+		img1.onload = function() {
+			console.info("img1 loaded. " + new Date().toLocaleString());
+		};
+		var foo = setInterval(function() {
+			if (img1.complete) {
+				console.info("img1 loaded: " + img1.complete);
+				clearInterval(foo);
+			}
+		}, 100);
+		document.addEventListener("DOMContentLoaded", function() {
+			console.info("document.DOMContentLoaded. " + new Date().toLocaleString());
+		})
+		window.onload = function() {
+			console.info("window.loaded. " + new Date().toLocaleString());
+		}
+	</script>
+</body>
+</html>

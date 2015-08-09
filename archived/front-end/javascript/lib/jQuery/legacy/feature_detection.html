@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Feature Detection</title>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<style type="text/css">
+li {
+	font-size: 16px;
+}
+span {
+	font-weight: bold;
+	font-size: 24px;
+}
+.true {
+	color: green;
+}
+
+.false {
+	color: red;
+}
+
+.undefined {
+	color: gray;
+}
+</style>
+<script type="text/javascript">
+	$(function() {
+		var list = $("#list");
+		var arrays = [
+  			"$.support.ajax",
+  			"$.support.boxModel",
+  			"$.support.changeBubbles",
+  			"$.support.checkClone",
+  			"$.support.checkOn",
+  			"$.support.cors",
+  			"$.support.cssFloat",
+  			"$.support.hrefNormalized",
+  			"$.support.htmlSerialize",
+  			"$.support.leadingWhitespace",
+  			"$.support.noCloneChecked",
+  			"$.support.noCloneEvent",
+  			"$.support.opacity",
+  			"$.support.optDisabled",
+  			"$.support.optSelected",
+  			"$.support.scriptEval",
+  			"$.support.style",
+  			"$.support.submitBubbles",
+  			"$.support.tbody"
+  		];
+  		for (var i = 0; i < arrays.length; i++) {
+  			var obj = arrays[i], value = String(eval(obj));
+  			li = $("<li/>").text(obj + " : ").appendTo(list);
+  			$("<span/>").addClass(value).text(value).appendTo(li);
+  		}
+  		$("<li/>").text(navigator.userAgent).appendTo(list);
+  		function isIE10() {
+  			return navigator.userAgent.indexOf("MSIE 10.0") > 0;
+  		}
+	});
+</script>
+</head>
+<body>
+	<ul id="list"></ul>
+</body>
+</html>

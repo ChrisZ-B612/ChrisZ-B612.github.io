@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>javascript广告代码_两侧浮动</title>
+<!-- http://www.cnblogs.com/dtdxrk/archive/2011/08/29/2158316.html -->
+<style type="text/css">
+body {
+	height: 10000px;
+}
+</style>
+</head>
+
+<body>
+	<script>
+		var ad_LR = { //javascript广告代码_两侧浮动
+			speed : 200, //速度
+			ad_left_gg : "<div id=\"ad_left_gg\" style='position:fixed; z-index:10; top:5px; left:5px; width:100px; height:400px;border:1px solid #ccc;'><a href='#' onclick=\"document.getElementById('ad_left_gg').style.display='none'; return false;\">关闭</a></div>", //左侧
+			ad_right_gg : "<div id=\"ad_right_gg\" style='position:fixed; z-index:10; top:5px; right:5px; width:100px; height:400px;border:1px solid #ccc;'><a href='#' onclick=\"document.getElementById('ad_right_gg').style.display='none'; return false;\">关闭</a></div>", //右侧
+			getScroll : function getScroll() { //根据滚动条滚动
+				var posY;
+				if (document.documentElement
+						&& document.documentElement.scrollTop) {
+					posY = document.documentElement.scrollTop;
+				} else if (document.body) {
+					posY = document.body.scrollTop;
+				}
+
+				var top = window.screen.height > 900 ? 5 : 5; //距离top的距离
+				document.getElementById('ad_left_gg').style.top = (posY + top)
+						+ 'px';
+				document.getElementById('ad_right_gg').style.top = (posY + top)
+						+ 'px';
+			}
+		}
+
+		document.write(ad_LR.ad_left_gg, ad_LR.ad_right_gg);
+// 		setInterval(ad_LR.getScroll, ad_LR.speed);
+	</script>
+</body>
+</html>

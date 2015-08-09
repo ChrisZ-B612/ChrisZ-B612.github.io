@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="content-type" />
+<title>Glowing Anchor Links</title>
+<style type="text/css" media="screen">
+a {
+	color: #00e;
+}
+
+a:visited {
+	color: #551a8b;
+}
+
+a:hover {
+	color: #06e;
+}
+
+a:focus {
+	outline: thin dotted;
+}
+
+a:hover,a:active {
+	outline: 0;
+}
+
+a,a:visited,a:active {
+	text-decoration: none;
+	-webkit-transition: all .3s ease-in-out;
+}
+
+a:hover,.glow {
+	color: #ff0;
+	text-shadow: 0 0 10px #f00;
+}
+</style>
+</head>
+
+<body>
+	<a>咖啡</a>
+	<a>茶</a>
+	<a>牛奶</a>
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>JavaScript案例练习_日历 年历</title>
+<!-- http://www.cnblogs.com/dtdxrk/archive/2011/12/05/2277218.html -->
+<style>
+body {
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: #ececec;
+}
+
+#calendar {
+	width: 930px;
+	margin: 0 auto;
+/* 	overflow: hidden; */
+}
+
+#calendar h1 {
+	text-align: center;
+	margin: 5px;
+	padding: 10px;
+	font-size: 30px;
+	line-height: 30px;
+}
+
+#calendar div.tb {
+/* 	margin: 0 auto; */
+	float: left;
+	width: 300px;
+	height: 200px;
+/* 	display: inline; */
+	margin: 5px;
+}
+
+#calendar table {
+/* 	margin: 0 auto; */
+	background-color: #fff;
+ 	border-collapse: collapse;
+}
+
+#calendar td {
+	text-align: center;
+}
+
+#calendar th {
+/*	这里设置的width最小不会挤压单元格内容，最大不会撑爆table，放在td里面也可以实现效果	*/
+	width: 50px;
+	background-color: #FFFF99;
+}
+
+#calendar td,th {
+	border: 1px solid #000;
+	height: 20px;
+/* 	line-height: 20px; */
+}
+
+#calendar .red {
+	color: #FF0000;
+}
+</style>
+</head>
+
+<body>
+	<script>
+		var date = new Date();
+		var nowYear = date.getFullYear(); //当前年份
+		function is_leap(year) {
+			return (year % 400 == 0 ? 1 : 0)
+		}; //是否为闰年 能够被400整除的闰年2月29天 不能被整除的是平年2月28天
+		var months = [ 31, 28 + is_leap(nowYear), 31, 30, 31, 31, 30, 31, 30,
+				31, 30, 31 ]; //月天数
+
+		document.write("<div id='calendar'><h1>" + nowYear + "年历</h1>");
+		for ( var m = 0; m < 12; m++) { //循环12月
+
+			var mDay = new Date(nowYear, m, 1); //当月
+			var firstDay = mDay.getDay(); //当月第一天星期几
+			var tr_str = Math.ceil((months[m] + firstDay) / 7); //计算行数
+			var monthDay = 1; //每月从1号开始
+			document.write("<div class='tb'><table>");
+			document.write("<tr><td colspan='7' class='blue'>" + nowYear + "年"
+					+ (m + 1) + "月</td></tr>");
+			document
+					.write("<tr><th class='red'>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th></tr>");
+
+			for ( var d = 0; d < tr_str; d++) { ////循环行数
+				document.write("<tr>");
+				for ( var week = 0; week <= 6; week++) {
+					document.write("<td>");
+
+					if (week >= firstDay) {
+						firstDay = 0;
+
+						if (monthDay <= months[m]) { //循环当前月日期
+							document.write(monthDay);
+							monthDay++;
+						}
+
+					}
+
+					document.write("</td>");
+				}
+
+				document.write("</tr>");
+			}
+
+			document.write("</table></div>");
+
+		}
+		document.write("</div>");
+	</script>
+</body>
+</html>

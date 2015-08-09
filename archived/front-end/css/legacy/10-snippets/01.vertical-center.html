@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>1. Vertical Align Anything</title>
+<!--http://www.hongkiat.com/blog/simple-css-snippets/-->
+<style type="text/css">
+.outer {
+	background-color: green;
+	height: 300px;
+}
+
+.inner {
+	background-color: red;
+	height: 100px;
+}
+
+.verticalcenter {
+	position: relative;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-o-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+</style>
+</head>
+<body>
+	<div class="outer">
+		<div class="inner verticalcenter"></div>
+	</div>
+</body>
+</html>

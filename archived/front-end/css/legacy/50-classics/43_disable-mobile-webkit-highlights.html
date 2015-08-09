@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Disable Mobile Webkit Highlights</title>
+<style type="text/css">
+body {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+</style>
+</head>
+<body>
+	<a href="http://www.baidu.com">Baidu</a>
+	<a href="http://www.google.com">Google</a>
+	<script type="text/javascript">
+	var as = document.getElementsByTagName("a");
+	for (var i = 0; i < as.length; i++) {
+		as[i].onclick = function(e) {
+			alert(this.getAttribute("href"));
+			e.preventDefault();
+		};
+	}
+	</script>
+</body>
+</html>

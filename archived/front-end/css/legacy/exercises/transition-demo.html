@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+div.item {
+	width: 200px;
+	height: 100px;
+	line-height: 100px;
+	background: blue;
+	margin-bottom: 20px;
+	font-size: xx-large;
+	color: white;
+}
+</style>
+</head>
+<body>
+	<script type="text/javascript">
+		var timings = [ "linear", "ease", "ease-in", "ease-out", "ease-in-out" ], seconds = 1;
+		var c = document.createElement("div");
+		c.id = "container";
+		document.body.appendChild(c);
+		timings.forEach(function(timing) {
+			var item = document.createElement("div");
+			item.style.transition = "width " + seconds + "s " + timing;
+			item.className = "item";
+			item.innerHTML = timing;
+			c.appendChild(item);
+			//Using setTimeout to wait for the DOM appending take effect
+			setTimeout(function() {
+				bounce(item, true);
+			}, 0);
+		})
+
+		function bounce(item, flag) {
+			var func = arguments.callee;
+			if (flag) {
+				item.style.width = "1000px";
+			} else {
+				item.style.width = "200px";
+			}
+			setTimeout(function() {
+				func.call(null, item, !flag);
+// 				bounce(item, !flag);
+			}, (seconds + 0.2) * 1000);
+		}
+	</script>
+</body>
+</html>

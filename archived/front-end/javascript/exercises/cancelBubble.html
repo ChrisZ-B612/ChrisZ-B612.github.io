@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Js阻止事件冒泡 弹出层后点击body区域层消失</title>
+<!-- http://www.cnblogs.com/dtdxrk/archive/2012/07/09/2583214.html -->
+<style type="text/css">
+body {
+	background-color: #eee;
+}
+
+div#box {
+	background-color: #fff;
+	border: 5px solid #000;
+	width: 300px;
+	height: 100px;
+	display: none;
+}
+</style>
+</head>
+
+<body>
+	<input id="bt" type="button" value="点击弹出div" />
+	<div id="box">
+		<ul>
+			<li><span>css</span></li>
+			<li><span>html</span></li>
+			<li><span>js</span></li>
+		</ul>
+	</div>
+
+	<script type="text/javascript">
+		document.getElementById("bt").onclick = function(e) {
+			document.getElementById("box").style.display = "block";
+			console.info("e.bubbles :" + e.bubbles);//表明事件是否冒泡
+			console.info("e.cancelable " + e.cancelable);//表明是否可以取消事件的默认行为
+		}
+
+		document.getElementById("box").onclick = function(e) {
+			e = e || window.event;
+			if (window.event) { //阻止事件冒泡
+				e.cancelBubble = true;//IE, Chrome
+			} else {
+				e.stopPropagation();//Firefox
+			}
+		}
+
+		document.body.onclick = function(e) {
+			e = e || window.event;
+			var target = e.target || e.srcElement;
+			if (target.id === "box" || target.id === "bt") {
+				return;
+			} else {
+				document.getElementById("box").style.display = "none";
+			}
+		}
+	</script>
+</body>
+</html>

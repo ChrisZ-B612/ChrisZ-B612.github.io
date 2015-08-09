@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>CSS Resets</title>
+<!--http://www.hongkiat.com/blog/css-snippets-for-designers/-->
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video
+{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	outline: none;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	font-size: 62.5%;
+	line-height: 1;
+	font-family: Arial, Tahoma, sans-serif;
+}
+
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
+	display: block;
+}
+
+ol,ul {
+	list-style: none;
+}
+
+blockquote,q {
+	quotes: none;
+}
+
+blockquote:before,blockquote:after,q:before,q:after {
+	/*为什么有两个content？*/
+	content: '';
+	content: none;
+}
+
+strong {
+	font-weight: bold;
+}
+
+table {
+	border-collapse: collapse;
+	/*在border-collapse为collapse的情况下还设置border-spacing为0，是为了让子元素继承？*/
+	border-spacing: 0;
+}
+
+img {
+	border: 0;
+	max-width: 100%;
+}
+
+p {
+	font-size: 1.2em;
+	line-height: 1.0em;
+	color: #333;
+}
+</style>
+</head>
+<body>
+	<div
+		style="width: 400px; height: 50px; background-color: #eee;">
+		<div
+			style="width: 200px; line-height: 20px; border: 10px ridge #f60; padding: 5px; float: left; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box">width:200px</div>
+		<div
+			style="width: 200px; line-height: 20px; border: 10px ridge #0f0; float: left; padding: 5px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box">width:200px</div>
+	</div>
+	<blockquote>
+		<p>Hello World!</p>
+	</blockquote>
+	<div style="width: 200px;height: 300px;">
+		<img src="http://d02.res.meilishuo.net/pic/_o/3b/ed/e53d8e962b8a7afb4e8bf2762a6a_700_700.jpg" alt="404" />
+	</div>
+</body>
+</html>

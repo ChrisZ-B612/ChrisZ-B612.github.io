@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script type="text/javascript" src="classify.js"></script>
+<title>Classify.js</title>
+</head>
+<body>
+	<script type="text/javascript">
+		classify("A", function() {
+			def("m1", function() {
+				return "M1";
+			});
+			extend(function() {
+				def("s1", function() {
+					return "S1";
+				});
+			});
+		});
+
+		classify(A, function() {
+			def("m2", function() {
+				return "M2";
+			});
+			extend(function() {
+				def("s1", function() {
+					return this.callSuper() + "S2";
+				});
+			});
+		});
+		
+		alias("abc", "A.s1");
+		
+		console.log(A.s1());
+		console.log(abc());
+	</script>
+</body>
+</html>

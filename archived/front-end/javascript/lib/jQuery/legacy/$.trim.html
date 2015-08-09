@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>$.trim</title>
+<style>
+ul {
+	margin: 0 auto;
+	width: 800px;
+	list-style: none;
+	padding: 0;
+	font-size: 60px;
+}
+
+li {
+	background-color: #CCCCCC;
+	text-align: center;
+	margin: 10px 0;
+	padding: 10px 0;
+}
+</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	var outer = $("#outer");
+	var addItem = function(msg) {
+		$("<li/>").text(msg + " : " + eval(msg)).appendTo(outer);
+		console.info(msg + " : " + eval(msg));
+	}
+	addItem("$.trim(null) === ''");
+	addItem("$.trim(undefined) === ''");
+	addItem("$.trim(0)");
+	addItem("$.trim(true)");
+	addItem("$.trim(false)");
+});
+</script>
+</head>
+<body>
+	<ul id="outer"></ul>
+</body>
+</html>

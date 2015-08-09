@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Continued List Ordering</title>
+<!-- http://timmychristensen.com/css-ordered-list-numbering-examples.html -->
+<style type="text/css">
+ol.chapters {
+	list-style: none;
+/* 	margin-left: 0; */
+}
+
+ol.chapters > li:before {
+	content: counter(chapter) ". ";
+	counter-increment: chapter;
+	font-weight: bold;
+ 	float: left;
+	width: 30px;
+}
+
+ol.chapters li { 
+/* 	clear: left; */
+}
+
+ol.start {
+	counter-reset: chapter;
+}
+
+ol.continue {
+	counter-reset: chapter 11;
+}
+
+ol.reverse {
+	list-style: none;
+	counter-reset: reverse 11;
+}
+
+ol.reverse {
+	list-style: none;
+	counter-reset: reverse 11;
+}
+
+ol.reverse > li:before {
+	content: counter(reverse) '.';
+	display: block;
+	left: -30px;
+	position: absolute;
+	text-align: right;
+	width: 30px;
+}
+
+ol.reverse li {
+    counter-increment: reverse -1;
+    position: relative;
+}
+</style>
+</head>
+<body>
+	<div class="example">
+		<h5>Book One</h5>
+		<ol class="chapters start">
+			<li>A Long-expected Party</li>
+			<li>The Shadow of the Past</li>
+			<li>Three is Company</li>
+			<li>A Short Cut to Mushrooms</li>
+			<li>A Conspiracy Unmasked</li>
+			<li>The Old Forest</li>
+			<li>In the House of Tom Bombadil</li>
+			<li>Fog on the Barrow-downs</li>
+			<li>At the Sign of The Prancing Pony</li>
+			<li>Strider</li>
+			<li>Flight to the Ford</li>
+		</ol>
+		<h5>Book Two</h5>
+		<ol class="chapters continue">
+			<li>Many Meetings</li>
+			<li>The Council of Elrond</li>
+			<li>The Ring Goes South</li>
+			<li>A Journey in the Dark</li>
+			<li>The Bridge of Khazad-dum</li>
+			<li>Lothlorien</li>
+			<li>The Mirror of Galadriel</li>
+			<li>Farewell to Lorien</li>
+			<li>The Great River</li>
+			<li>The Breaking of the Fellowship</li>
+		</ol>
+	</div>
+
+	<div class="example">
+		<h5>David Letterman’s Favorite Numbers
+			From&nbsp;Ten&nbsp;to&nbsp;One:</h5>
+		<ol class="reverse">
+			<li>Ten</li>
+			<li>Nine</li>
+			<li>Six</li>
+			<li>Five</li>
+			<li>Eight</li>
+			<li>One</li>
+			<li>Four</li>
+			<li>Three</li>
+			<li>Seven</li>
+			<li>Two</li>
+		</ol>
+	</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="content-type" charset="utf-8" />
+<title>Js物体缓冲运动</title>
+<!-- http://www.cnblogs.com/dtdxrk/archive/2012/08/17/2644387.html -->
+</head>
+<body style="position: relative;">
+	<div id="odiv" style="position: absolute; width: 200px; height: 200px; background-color: black; left: 0;"></div>
+
+	<script type="text/javascript">
+		var odiv = document.getElementById("odiv");
+		odiv.onclick = function() {
+			move(odiv, 1000);
+		}
+
+		function move(obj, XY) {
+			var moveTime = setInterval(function() {
+				var left = parseInt(obj.style.left);
+				console.info(left);
+				if (left == XY) {
+					clearInterval(moveTime);
+				} else {
+					var speed = Math.ceil((XY - left) / 5);
+					obj.style.left = left + speed + "px";
+				}
+			}, 20);
+		}
+	</script>
+</body>
+</html>

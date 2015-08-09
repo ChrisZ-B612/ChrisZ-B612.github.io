@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--
+当元素的flex-grow为0时，意味着该元素的宽度固定为flex-basis的值，另flex-basis的auto值就等同于0；
+所有flex-basis为auto的元素会根据各自的flex-grow值按比例瓜分除了flex-grow为0的元素占据的空间以外的所有空间。
+-->
+<html>
+<head>
+    <style>
+        #main {
+            width: 1000px;
+            height: 500px;
+            border: 1px solid #c3c3c3;
+            display: -webkit-flex; /* Safari */
+            display: flex;
+        }
+
+        #main div {
+            -webkit-flex: auto;  /* Safari 6.1+ */
+            -ms-flex: auto;  /* IE 10 */
+            flex: auto;
+        }
+
+        #main div:nth-of-type(1) {
+            -webkit-flex-grow: 0;
+            flex-grow: 0;
+            -webkit-flex-basis: 100px;
+            flex-basis: 100px;
+        }
+
+        #main div:nth-of-type(2) {
+            -webkit-flex-grow: 2;
+            flex-grow: 2;
+        }
+
+        #main div:nth-of-type(3) {
+            -webkit-flex-grow: 3;
+            flex-grow: 3;
+        }
+    </style>
+</head>
+<body>
+
+<div id="main">
+    <div style="background-color:coral;"></div>
+    <div style="background-color:lightblue;"></div>
+    <div style="background-color:khaki;"></div>
+    <div style="background-color:pink;"></div>
+    <div style="background-color:lightgrey;"></div>
+</div>
+
+<p><b>Note:</b> Internet Explorer 9 and earlier versions do not support the flex property.</p>
+
+<p><b>Note:</b> Internet Explorer 10 supports an alternative, the -ms-flex property. IE11 and newer versions fully support the flex property (do not need the -ms- prefix).</p>
+
+<p><b>Note:</b> Safari 6.1 (and newer) supports an alternative, the -webkit-flex property.</p>
+
+</body>
+</html>

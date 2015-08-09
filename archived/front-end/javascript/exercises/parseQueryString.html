@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Web前端面试题 Js把URL中的参数解析为一个对象</title>
+<!-- http://www.cnblogs.com/dtdxrk/archive/2012/07/24/2606729.html -->
+<body>
+	<script type="text/javascript">
+		var url = "http://www.taobao.com/index.php?key0=0&key1=1&key2=2&key0=00&key1=11";
+
+		function parseQueryString(url) {
+			var str = url.split("?")[1], //通过?得到一个数组,取?后面的参数
+			items = str.split("&"); //分割成数组
+			var arr, name, value;
+
+			for ( var i = 0; i < items.length; i++) {
+				arr = items[i].split("="); //["key0", "0"]
+				name = arr[0];
+				value = arr[1];
+				if (!this[name]) {
+					this[name] = value;
+				} else if ( Object.prototype.toString.call( this[name] ) === "[object Array]") {
+					// if already an Array.(http://learn.jquery.com/javascript-101/testing-type/)
+					var array = this[name];
+					array.push(value);
+				} else {
+					var array = new Array();
+					array.push(this[name]);
+					array.push(value);
+					this[name] = array;
+				}
+			}
+		}
+
+		var obj = new parseQueryString(url);
+		console.info(obj);
+	</script>
+</body>
+</html>

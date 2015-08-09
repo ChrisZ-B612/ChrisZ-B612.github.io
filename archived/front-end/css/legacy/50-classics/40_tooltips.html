@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>CSS Tooltip Hovers</title>
+<!-- http://www.impressivewebs.com/pure-css-tool-tips/ -->
+<style type="text/css">
+a[data-tooltip]:link,a[data-tooltip]:visited {
+	position: relative;
+	text-decoration: none;
+	border-bottom: solid 1px;
+}
+
+a[data-tooltip]:before {
+	content: "";
+	position: absolute;
+	border-top: 20px solid #0090ff;
+	border-left: 30px solid transparent;
+	border-right: 30px solid transparent;
+	visibility: hidden;
+	top: -18px;
+	left: -26px;
+}
+
+a[data-tooltip]:after {
+	content: attr(data-tooltip);
+	position: absolute;
+	color: white;
+	top: -35px;
+	left: -26px;
+	background: #0090ff;
+	padding: 5px 15px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	white-space: nowrap;
+	visibility: hidden;
+}
+
+a[data-tooltip]:hover:before,a[data-tooltip]:hover:after {
+	visibility: visible;
+	-webkit-transition: visibility 0s linear .3s;
+	-moz-transition: visibility 0s linear .3s;
+	-o-transition: visibility 0s linear .3s;
+	transition: visibility 0s linear .3s;
+}
+</style>
+</head>
+<body>
+	<p style="display: table-cell; vertical-align: middle; height: 500px;">
+		I love <a href="https://www.google.com" data-tooltip="What?">Google</a>
+	</p>
+</body>
+</html>

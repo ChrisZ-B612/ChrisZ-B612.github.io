@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>JavaScript测试题练习</title>
+<!-- http://www.cnblogs.com/dtdxrk/archive/2012/10/12/2720823.html -->
+</head>
+<body>
+	<script type="text/javascript">
+		// 	1、给你一个字符串，要你找出里面出现次数最多的字母和出现的次数，
+		// 	例如：“weruiewiuorsdjfklxsdfwerxcvcvcvmqwersadftioytyiopuioptuioptyiouio”；
+		function func1() {
+			var str = "weruiewiuorsdjfklxsdfwerxcvcvcvmqwersadftioytyiopuioptuioptyiouio";
+			var n = "", copyStr = [], i = 0, temp = 0;
+
+			while (str.charAt(0)) {
+				copyStr[i] = str.charAt(0) + "="
+						+ (str.split(str.charAt(0)).length - 1);
+				str = str.split(str.charAt(0)).join("");
+				i++;
+			}
+
+			for ( var j = 0, temp = 0; j < copyStr.length; j++) {
+				if (temp <= Number(copyStr[j].split("=")[1])) {
+					temp = Number(copyStr[j].split("=")[1]);
+					n = copyStr[j];
+				}
+			}
+
+			alert("出现次数最多的为:" + n + "\n" + "每个字母出现的次数为:" + copyStr);
+		}
+		
+		//2、字符串的字节长度；
+		function func2() {
+			function strLength(s) {
+				if (!arguments.length) {
+					alert("没有参数!");
+					return;
+				}
+				if (arguments.length > 1) {
+					alert("参数过多只能设置一个!");
+					return;
+				}
+				if (s == "") {
+					alert("参数不能为空!");
+					return;
+				}
+	
+				var n = 0;
+				for ( var i = 0; i < s.length; i++) {
+					if (s.charCodeAt(i) > 255) { //charCodeAt() 方法可返回指定位置的字符的 Unicode 编码
+						n += 2;
+					} else {
+						n++;
+					}
+				}
+				return n;
+			}
+			alert(strLength("张彪"));
+		}
+		
+		function func3() {
+			 var a = ["abc", "def", "a", "b", "c", "a", "a", "b", "c"];
+			 
+			 function strip(str) {
+			     if(str.length < 2) return str;
+			 
+			     var arr = [];
+			     while (str.length > 0) {
+			         arr.push(str.splice(0, 1));  //给arr添加str数组的第一个
+			         for (var j = 0; j < str.length; j++){
+			             if(str[j] == arr[arr.length-1]){    //对比arr数组的最后一个
+			                 str.splice(j--,1);
+			             }
+			         }
+			     }
+			     alert(arr);
+			 }
+			 
+			 strip(a);
+		}
+		
+		func1();
+	</script>
+</body>
+</html>

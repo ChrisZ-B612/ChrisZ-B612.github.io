@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>一道Web前端面试题 DIV放大</title>
+<!-- http://www.cnblogs.com/dtdxrk/archive/2012/05/10/2494583.html -->
+<style>
+body {
+	margin: 0;
+	padding: 0;
+	font-size: 30px;
+	text-align: center;
+	font-family: "Courier New", Courier, monospace;
+}
+
+div {
+	background-color: #ececec;
+	cursor: pointer;
+}
+
+#a {
+	width: 100px;
+	height: 100px;
+	line-height: 100px;
+	margin-bottom: 10px;
+}
+
+#b {
+	width: 100px;
+	height: 100px;
+	line-height: 100px;
+}
+
+#c {
+	position: absolute;
+	top: 0;
+	left: 110px;
+	width: 300px;
+	height: 210px;
+	line-height: 210px;
+}
+
+#copy {
+	display: none;
+	position: absolute;
+	border: 1px solid #999;
+}
+</style>
+</head>
+
+<body>
+	<div id="a">A</div>
+	<div id="b">B</div>
+	<div id="c">C</div>
+	<div id="copy"></div>
+
+	<script>
+		var div = document.getElementsByTagName('div');
+
+		for ( var i = 0; i < div.length - 1; i++) { //遍历div
+			div[i].onmouseover = showDIV;
+		}
+
+		function showDIV() {
+
+			var copy = document.getElementById('copy');
+			copy.innerHTML = this.innerHTML;
+			copy.style.display = 'block';
+			copy.style.width = 1.5 * this.offsetWidth + 'px';
+			copy.style.height = 1.5 * this.offsetHeight + 'px';
+			copy.style.lineHeight = 1.5 * this.offsetHeight + 'px';
+			copy.style.fontSize = 60 + 'px';
+			copy.style.top = this.offsetTop + 'px';
+			copy.style.left = this.offsetLeft + 'px';
+
+			copy.onmouseout = function() {
+				this.style.display = 'none';
+			}
+		}
+	</script>
+
+</body>
+</html>

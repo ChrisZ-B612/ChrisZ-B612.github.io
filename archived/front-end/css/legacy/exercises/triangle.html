@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<style>
+/* create an arrow that points up */
+div.arrow-up {
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent; /* left arrow slant */
+	border-right: 10px solid transparent; /* right arrow slant */
+	border-bottom: 20px solid #2f2f2f;
+}
+
+/* create an arrow that points down */
+div.arrow-down {
+	width: 0;
+	height: 0;
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+	border-top: 20px solid #0f0;
+}
+
+/* create an arrow that points left */
+div.arrow-left {
+	width: 0;
+	height: 0;
+	border-bottom: 20px solid transparent; /* left arrow slant */
+	border-top: 20px solid transparent; /* right arrow slant */
+	border-right: 20px solid green;
+}
+
+/* create an arrow that points right */
+div.arrow-right {
+	width: 0;
+	height: 0;
+	border-bottom: 20px solid transparent; /* left arrow slant */
+	border-top: 20px solid transparent; /* right arrow slant */
+	border-left: 50px solid red;
+}
+/*****************************************************************/
+div.tooltip {
+	/* tooltip content styling in here; nothing to do with arrows */
+	position: relative;
+	border: 1px solid red;
+}
+
+/* shared with before and after */
+div.tooltip:before,div.tooltip:after {
+	content: '';
+	height: 0;
+	width: 0;
+	position: absolute;
+	border: 10px solid transparent; /* arrow size */
+}
+
+/* these arrows will point up */
+
+/* top-stacked, smaller arrow */
+div.tooltip:before {
+	border-bottom-color: #fff; /* arrow color */
+	/* positioning */
+	top: -18px;
+	left: 255px;
+	z-index: 2;
+}
+
+/* arrow which acts as a background shadow */
+div.tooltip:after {
+	border-bottom-color: #333; /* arrow color */
+	/* positioning */
+	top: -21px;
+	left: 255px;
+	z-index: 1;
+}
+</style>
+</head>
+<body>
+	<div class="arrow-up"></div>
+	<div class="arrow-right"></div>
+	<div class="arrow-down"></div>
+	<div class="arrow-left"></div>
+
+	<div class="tooltip">Hello World!</div>
+</body>
+</html>

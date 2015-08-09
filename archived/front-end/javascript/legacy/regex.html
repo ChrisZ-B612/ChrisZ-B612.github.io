@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>JavaScript Regular Expressions</title>
+</head>
+<body>
+	<script type="text/javascript">
+	var s = "name: Chris; age: 26; gender: X-MAN; tel: 18621501215";
+	var regex = /(tel: )\d{11}/;
+	console.log(regex.test(s));
+	console.log(regex.exec(s));
+	console.log(s.match(regex));
+	console.log(s.search(regex));
+	console.log("Shanghai, IN 46240".replace(/(\w+), ([A-Z]{2}) (\d{5})/, "$3 $1, $2"));
+	console.log(s.split(/; /));
+	console.log("****************************************************");
+	regex = /\w+(?=:)/g, i = 6;
+	console.log(s.match(regex));//match直接返回所有的匹配的数组
+	do {
+		console.log("lastIndex: " + regex.lastIndex);
+		var foo = regex.exec(s);//exec每次返回一个匹配和一些其他信息
+		console.log(foo);
+	} while (foo);
+	</script>
+</body>
+</html>

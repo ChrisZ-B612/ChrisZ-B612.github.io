@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Js省份联级</title>
+<!-- http://www.cnblogs.com/dtdxrk/archive/2012/09/05/2671429.html -->
+</head>
+<body>
+	<select id="pro">
+		<option>请选择省份</option>
+	</select>
+	<select id="city">
+		<option>请选择城市</option>
+	</select>
+
+
+	<script type="text/javascript">
+		(function() {
+			var str = [ {
+				"id" : 0,
+				"pro" : '江苏',
+				"city" : [ {
+					name : '南京'
+				}, {
+					name : '苏州'
+				}, {
+					name : '常州'
+				}, {
+					name : '无锡'
+				}, {
+					name : '镇江'
+				} ]
+			}, {
+				"id" : 1,
+				"pro" : '上海',
+				"city" : [ {
+					name : '徐汇区'
+				}, {
+					name : '闵行区'
+				}, {
+					name : '嘉定区'
+				} ]
+			} ];
+
+			var proSelect = document.getElementById("pro"), citySelect = document
+					.getElementById("city");
+
+			//添加省份
+			for ( var i = 0; i < str.length; i++) {
+				proSelect.options.add(new Option(str[i]["pro"], str[i]["id"]));
+			}
+
+			//点击省份读取城市列表
+			proSelect.onchange = function() {
+				citySelect.options.length = 1;
+				var citys = str[proSelect.value]["city"];
+				for ( var i = 0; i < citys.length; i++) {
+					citySelect.options.add(new Option(citys[i]["name"]));
+				}
+			}
+
+		}())
+	</script>
+
+</body>
+</html>

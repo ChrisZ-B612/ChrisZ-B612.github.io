@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>第五章：资料</title>
+<!-- http://codestar.alloyteam.com/1/5 -->
+<!-- Mossad/hzauzhang23@126.com -->
+</head>
+<body>
+	<script type="text/javascript">
+		//引入jQuery
+		var s = document.createElement("script");
+		s.src = "http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js";
+		s.onload = function() {console.info("jQuery loaded.")};
+		document.body.appendChild(s);
+		
+		//开始变色
+		for (var i = 0; i < 12; i++) {
+			var ele = $("#row_12").children(":eq(" + i + ")");
+			ele.data("v", Number(ele.text()));
+		}
+		
+		for (var i = 11; i >= 1; i--) {
+			var row = $("#row_" + i), next_row = $("#row_" + (i + 1));
+			for (var j = 0; j < i; j++) {
+				var left = Number(next_row.children(":eq(" + j + ")").data("v")), right = Number(next_row.children(":eq(" + (j + 1) + ")").data("v"));
+				
+				var max = Math.max(left, right), target = row.children(":eq(" + j + ")");
+				target.data("v", Number(target.text()) + max);
+				if (max === left) target.css("background-color", "red");
+				else target.css("background-color", "blue");
+			}
+		}
+		
+	</script>
+</body>
+</html>

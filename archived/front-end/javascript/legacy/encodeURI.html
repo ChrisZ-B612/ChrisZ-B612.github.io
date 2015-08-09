@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>escape, encodeURI, encodeURIComponent</title>
+<!-- http://stackoverflow.com/questions/75980/best-practice-escape-or-encodeuri-encodeuricomponent -->
+</head>
+<body>
+	<!-- escape/unescape has been deprecated since ECMAScript v3, don't use it. -->
+	<!-- encodeURI/decodeURI handles the whole URL. -->
+	<!-- encodeURIComponent/decodeURIComponent handles only the URL parameter. -->
+	<script type="text/javascript">
+		console.info(encodeURI("http://www.google.com/a file with spaces.html"));
+		var param1 = encodeURIComponent("http://xyz.com/?a=12&b=55");
+		console.info("http://domain.com/?param1=" + param1 + "&param2=99");
+	</script>
+</body>
+</html>

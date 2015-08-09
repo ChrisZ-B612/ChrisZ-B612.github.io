@@ -1,0 +1,217 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Js制作简单弹出层DIV在页面居中 中间显示 遮罩 方法</title>
+<!-- http://www.cnblogs.com/dtdxrk/archive/2012/12/12/2814985.html -->
+<style type="text/css">
+* {
+	margin: 0;
+	padding: 0;
+}
+
+/****订单弹出框*****/
+.orderMsg {
+	position: fixed;
+	_position: absolute;
+	_top: expression(documentElement.scrollTop + 340 + "px");
+	background: #fff;
+	border: 1px solid #939395;
+	width: 500px;
+	height: 340px;
+	top: 50%;
+	left: 50%;
+	margin: -200px 0 0 -250px;
+	z-index: 99999;
+	font-size: 14px;
+	color: #000;
+	display: none;
+}
+
+.orderMsg dl {
+	padding: 20px;
+}
+
+.orderMsg dl dt {
+	line-height: 2;
+}
+
+.orderMsg dl dd {
+	line-height: 25px;
+	height: 25px;
+	padding-left: 10px;
+}
+
+.orderMsg dl dd label {
+	padding-left: 5px;
+}
+
+.orderMsg dl dd.cBtn {
+	width: 102px;
+	height: 28px;
+	margin-top: 10px;
+}
+
+.orderMsg dl dd.cBtn a {
+	display: block;
+	text-align: center;
+}
+
+.orderMsg dl dd.lBtn {
+	float: left;
+}
+
+.orderMsg dl dd.rBtn {
+	float: right;
+}
+</style>
+</head>
+<body>
+	<button id="bt">点击弹出div</button>
+	<div style="height: 1000px;">
+		Magic Cube! <select>
+			<option>Volvo</option>
+			<option selected>Saab</option>
+			<option>Mercedes</option>
+			<option>Audi</option>
+		</select>
+	</div>
+
+	<div id="orderMsg" class="orderMsg">
+		<dl>
+			<dt>请您告知我们取消订单的原因，以便我们改进。非常感谢!</dt>
+			<dd>
+				<input type="radio" name="reason" id="reason1"><label
+					for="reason1">改变主意,现在不想买了</label>
+			</dd>
+			<dd>
+				<input type="radio" name="reason" id="reason2"><label
+					for="reason2">刚才信息填错了,要重新下单</label>
+			</dd>
+			<dd>
+				<input type="radio" name="reason" id="reason3"><label
+					for="reason3">先取消,再更换或添加新商品</label>
+			</dd>
+			<dd>
+				<input type="radio" name="reason" id="reason4"><label
+					for="reason4">网银,信用卡等支付有问题</label>
+			</dd>
+			<dd>
+				<input type="radio" name="reason" id="reason5"><label
+					for="reason5">等待时间过长,不耐烦了</label>
+			</dd>
+			<dd>
+				<input type="radio" name="reason" id="reason6"><label
+					for="reason6">商品价格较贵</label>
+			</dd>
+			<dd>
+				<input type="radio" name="reason" id="reason7"><label
+					for="reason7">出现商品缺货情况</label>
+			</dd>
+			<dd>
+				<input type="radio" name="reason" id="reason8"><label
+					for="reason8">其它的原因</label>
+			</dd>
+			<dd>
+				<input type="radio" disabled><label>72小时到期自动取消(不可选)</label>
+			</dd>
+			<dd class="cBtn lBtn">
+				<a href="#">选好了</a>
+			</dd>
+			<dd class="cBtn rBtn">
+				<a href="#" id="close">点击取消</a>
+			</dd>
+		</dl>
+	</div>
+
+	<script type="text/javascript">
+		/*
+		openID=显示按钮,conID=需要显示的div,closeID=关闭按钮
+		
+		解决了:
+		1.可以遮挡ie6下的select元素 但是在ie6下div没有透明度
+		2.弹出的div可以一直在浏览器屏幕中间显示
+		
+		问题:
+		1.目前不支持.class 只支持#id
+		2.需要显示的div需要自己设置css
+		3.在ie6下需要设置css
+		例如div {_position: absolute;_top: expression(documentElement.scrollTop + 340 + "px"); }
+		4.ie6下背景div没有透明度 这里我上网搜到的结果都不能解决 如果您有方法请给我留言
+		 */
+
+		var _CalF = { //便捷方法
+			$ : function(id) {
+				return document.getElementById(id)
+			},
+			create : function(id) {
+				return document.createElement(id)
+			},
+			append : function(id) {
+				return document.body.appendChild(id)
+			},
+			remove : function(id) {
+				return document.body.removeChild(id)
+			}
+		}
+
+		function popup(openID, conID, closeID) {
+			this.onclick(openID, conID, closeID);
+		}
+
+		popup.prototype = {
+
+			cssStyle : "width:100%;position:absolute;left:0;top:0;filter:alpha(opacity = 50);opacity:0.5;border:0;overflow:auto;",
+
+			createShadowDiv : function() { //背景遮罩
+				var shadowDiv = _CalF.create("div");
+				shadowDiv.id = "shadowDiv";
+				shadowDiv.style.cssText = this.cssStyle;
+				shadowDiv.style.height = document.body.scrollHeight + "px";
+				shadowDiv.style.backgroundColor = "#000";
+				shadowDiv.style.zindex = 100;
+				_CalF.append(shadowDiv);
+			},
+
+			createIframe : function() { //iframe
+				var iframe = _CalF.create("iframe");
+				iframe.id = "shadowIframe";
+				iframe.style.cssText = this.cssStyle;
+				iframe.style.height = document.body.scrollHeight + "px";
+				iframe.style.zindex = 99;
+				_CalF.append(iframe);
+			},
+
+			removeDiv : function() {
+				_CalF.remove(_CalF.$("shadowDiv"));
+				_CalF.remove(_CalF.$("shadowIframe"));
+			},
+
+			onclick : function(openID, conID, closeID) {
+				var that = this;
+
+				_CalF.$(openID).onclick = function() {
+
+					if (window.ActiveXObject) { //ie6
+						if (!window.XMLHttpRequest) {
+							document.body.style.cssText = "_background-image: url(about:blank);_background-attachment: fixed;";
+						}
+					}
+
+					that.createIframe();
+					that.createShadowDiv();
+					_CalF.$(conID).style.display = "block";
+				}
+
+				document.getElementById(closeID).onclick = function() {
+					_CalF.$(conID).style.display = "none";
+					that.removeDiv();
+				}
+			}
+
+		}
+
+		var bt = new popup("bt", "orderMsg", "close");
+	</script>
+</body>
+</html>

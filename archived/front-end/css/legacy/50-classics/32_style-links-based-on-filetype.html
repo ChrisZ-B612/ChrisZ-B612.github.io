@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Style Links Based On Filetype</title>
+<style type="text/css">
+/* external links */
+a[href^="http://"] {
+	padding-right: 13px;
+	background: url('external.gif') no-repeat center right;
+}
+
+/* emails */
+a[href^="mailto:"] {
+	padding-right: 20px;
+	background: url('email.png') no-repeat center right;
+}
+
+/* pdfs */
+a[href$=".pdf"] {
+	padding-right: 18px;
+	background: url('acrobat.png') no-repeat center right;
+}
+</style>
+</head>
+<body>
+	<a href="http://www.google.com">Google</a>
+	<a href="mailto:biao.zhang@hp.com">biao.zhang@hp.com</a>
+	<a href="http://www.google.com/g.pdf">pdf</a>
+</body>
+</html>

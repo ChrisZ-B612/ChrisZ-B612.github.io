@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="../../lib/jquery-1.9.0.min.js"></script>
+<title>Js获取元素在页面里的坐标位置和宽高</title>
+<!-- http://www.cnblogs.com/dtdxrk/archive/2012/07/05/2577284.html -->
+<style type="text/css">
+#outter {
+	margin: 50px 0 0 50px;
+	width: 500px;
+	height: 500px;
+	background-color: red;
+  	position: relative; 
+}
+#inner {
+	width: 100px;
+	height: 100px;
+	background-color: green;
+	
+ 	position: absolute;
+	left: 0;
+	top: 0;
+	
+	margin: 10px 0 0 10px;
+}
+</style>
+</head>
+<body>
+	<div id="outter">
+		<div id="inner"></div>
+	</div>
+	<script type="text/javascript">
+		//获取元素在页面里的位置和宽高，另外一种方法参见scrollIntoView.html
+		//由于在表格和iframe中，offsetParent对象未必等于父容器，所以这种方法对于表格和iframe中的元素不适用。
+		function getOffset(obj) {
+			var top = 0, left = 0, width = obj.offsetWidth, height = obj.offsetHeight;
+
+			while (obj.offsetParent) {
+				top += obj.offsetTop;
+				left += obj.offsetLeft;
+				obj = obj.offsetParent;
+			}
+
+			return {
+				"top" : top,
+				"left" : left,
+				"width" : width,
+				"height" : height
+			};
+		}
+		var inner = document.getElementById("inner");
+		console.info(getOffset(inner));
+		console.info($("#inner").offset());
+		console.info($("#inner").position());
+	</script>
+</body>
+</html>

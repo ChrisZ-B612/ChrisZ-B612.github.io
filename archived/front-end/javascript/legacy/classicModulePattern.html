@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+	<script type="text/javascript">
+		var classicModulePattern = (function() {
+			var privateVar = 1;
+			function privateFunction() {
+				alert('private');
+			}
+			return {
+				publicVar : 2,
+				publicFunction : function() {
+					this.anotherPublicFunction();
+				},
+				anotherPublicFunction : function() {
+					privateFunction();
+				}
+			}
+		})();
+		console.info(classicModulePattern);
+		classicModulePattern.publicFunction();
+	</script>
+</body>
+</html>

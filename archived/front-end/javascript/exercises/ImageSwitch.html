@@ -1,0 +1,220 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>原生Js封装焦点轮换图</title>
+<!-- http://www.cnblogs.com/dtdxrk/archive/2012/08/08/2628704.html -->
+<style type="text/css">
+#focusBox {
+	width: 530px;
+	height: 180px;
+	position: relative;
+	margin: 0 auto;
+/* 	zoom: 1; */
+	overflow: hidden;
+}
+
+#focusBox img {
+/* 	border: none; */
+/* 	margin: 0; */
+/* 	padding: 0; */
+}
+
+#focusBox ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	position: absolute;
+}
+
+#focusBox #focus_pic {
+	left: 0;
+	top: 0;
+}
+
+#focusBox #focus_pic li {
+	width: 530px;
+	height: 180px;
+/* 	margin: 0; */
+/* 	padding: 0; */
+	float: left;
+}
+
+#focusBox #focus_btn {
+	right: 5px;
+	bottom: 5px;
+/* 	z-index: 2; */
+}
+
+#focusBox #focus_btn li {
+	float: left;
+	border-radius: 20px;
+	font-size: 12px;
+	width: 25px;
+	height: 25px;
+	line-height: 25px;
+	font-weight: bold;
+	text-align: center;
+	background-color: #fff;
+	color: #000;
+	margin-right: 2px;
+	cursor: pointer;
+}
+
+#focusBox #focus_btn li.active {
+	background: #f60;
+	color: #fff;
+}
+</style>
+<body>
+
+	<div id="focusBox">
+		<ul id="focus_pic">
+			<li><a href="#" onclick="javascript:return false;"><img src="1.jpg" width="530"
+					height="180"></a></li>
+			<li><a href="#" onclick="javascript:return false;"><img src="2.jpg" width="530"
+					height="180"></a></li>
+			<li><a href="#" onclick="javascript:return false;"><img src="3.jpg" width="530"
+					height="180"></a></li>
+			<li><a href="#" onclick="javascript:return false;"><img src="4.jpg" width="530"
+					height="180"></a></li>
+			<li><a href="#" onclick="javascript:return false;"><img src="5.jpg" width="530"
+					height="180"></a></li>
+		</ul>
+	</div>
+
+
+	<script type="text/javascript">
+		/*
+		    var focus = new focusBox("focus_pic", {
+		        v : 0,//幻灯片滚动方向 0=左右 1=垂直 
+		        width : 530,
+		        height : 180,   
+		        btnId : "focus_btn",//按钮ID
+		        on : 1,//鼠标事件触发 0=onmouseover 1=onclick
+		        autoTime : 2000 //播放间隔
+		    });
+		 */
+		function focusBox(id, oo) {
+			this.$ = function(id) {
+				return document.getElementById(id)
+			};
+			this.id = id;
+			this.oo = oo;//oo.v, oo.width, oo.height, oo.btnId, oo.on, oo.autoTime
+			this.index = 0;
+			return this.init();
+		}
+
+		focusBox.prototype = {
+			init : function() {//初始化设置
+				this.picLis = this.$(this.id).getElementsByTagName("li");//图片lis
+				this.createBtn(this.oo.btnId);//创建数字按钮
+				this.btnLis = this.$(this.oo.btnId).getElementsByTagName("li");//按钮lis
+				this.oo.v == 0 ? this.$(this.id).style.width = this.oo.width
+						* this.btnLis.length + "px"
+						: this.$(this.id).style.width = this.oo.width + "px";//判断滚动方向 修改ul的宽度
+				this.btnHover();
+				this.autoPlay();
+			},
+			autoPlay : function() {//定时器
+				this.moveIndex(this.index);
+				for ( var i = 0; i < this.btnLis.length; i++) {
+					this.btnLis[i].className = "";//清除按钮的样式
+				}
+				this.btnLis[this.index].className = "active";
+			},
+			moveIndex : function(index) {//移动index
+				clearTimeout(this.autoTimer);//清除定时
+				var posx = this.oo.v == 0 ? -index * this.oo.width : 0, posy = this.oo.v == 1 ? -index
+						* this.oo.height
+						: 0, that = this;
+				//控制图片的切换
+				this.Timer = setInterval(function() {
+					that.moveTo(posx, posy)
+				}, 10);
+			},
+			moveTo : function(posx, posy) {//移动坐标
+// 				var left = parseInt(this.$(this.id).style.left), top = parseInt(this.$(this.id).style.top);
+				var left = parseInt(this.getCurrentStyle(this.$(this.id), "left")), top = parseInt(this.getCurrentStyle(this.$(this.id), "top"));
+				console.info(left + ":" + top);
+				left = left > posx ? left - Math.ceil((left - posx) / 10)
+						: left + Math.ceil((posx - left) / 10);//当目标位置大于当前位置的时候，一次移动LEFT坐标
+				top = top > posy ? top - Math.ceil((top - posy) / 10) : top
+						+ Math.ceil((posy - top) / 10);
+
+				this.$(this.id).style.top = top + "px";
+				this.$(this.id).style.left = left + "px";
+				if (left == posx && top == posy) {
+					clearInterval(this.Timer);
+					this.index++;
+					if (this.index == this.btnLis.length)
+						this.index = 0;
+					var that = this;
+					//autoTime控制图片的播放
+					this.autoTimer = setTimeout(function() {
+						that.autoPlay()
+					}, this.oo.autoTime);
+				}
+			},
+			createBtn : function(id) {//创建按钮
+				var ul = document.createElement("ul");
+				ul.id = id;
+				for ( var i = 0; i < this.picLis.length; i++) {
+					var li = document.createElement("li");
+					if (i == 0) {
+						li.className = "active";
+					}
+					li.innerHTML = i + 1;
+					ul.appendChild(li);
+				};
+				this.$(this.id).parentNode.appendChild(ul);//添加到父div下
+			},
+			btnHover : function() {//按钮添加事件
+				for ( var i = 0; i < this.btnLis.length; i++) {
+					this.btnLis[i].index = i;
+					var that = this;
+					if (this.oo.on == 0) {
+						this.btnLis[i].onmouseover = function() {
+							clearTimeout(that.autoTimer);
+							clearInterval(that.Timer);
+							that.index = this.index;
+							that.autoPlay();
+						}
+					} else {
+						this.btnLis[i].onclick = function() {
+							clearTimeout(that.autoTimer);
+							clearInterval(that.Timer);
+							that.index = this.index;
+							that.autoPlay();
+						}
+					};
+				};
+			},
+			getCurrentStyle : function(obj, prop) {//prop格式为**-**
+				if (obj.currentStyle) {//IE
+					return obj.currentStyle(prop);
+				} else if (window.getComputedStyle) {//W3C
+					prop = prop.replace(/([A-Z])/g, "-$1");
+					prop = prop.toLowerCase();
+					return document.defaultView.getComputedStyle(obj, null)[prop];
+				} else {
+					return null;
+				}
+			}
+
+		}
+	</script>
+
+	<script type="text/javascript">
+		var focus = new focusBox("focus_pic"/*包裹图片UL的ID*/, {
+			v : 0,//幻灯片滚动方向 0=左右 1=垂直 
+			width : 530,
+			height : 180,
+			btnId : "focus_btn",//按钮ID
+			on : 1,//鼠标事件触发 0=onmouseover 1=onclick
+			autoTime : 1000//播放间隔
+		});
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Js 基于localStorage制作的"我的便签本"</title>
+<!-- http://www.cnblogs.com/dtdxrk/archive/2012/10/22/2733889.html -->
+<style type="text/css">
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+body {
+	background-color: #efefef;
+	line-height: 1.5;
+}
+
+#text {
+	background: #C0C0C0;
+	padding-bottom: 10px;
+}
+
+#notepad {
+	width: 400px;
+	height: 400px;
+	margin: 10px auto;
+	border: 1px solid #ccc;
+	position: relative;
+	background-color: #666;
+}
+
+#notepad h1 {
+	line-height: 35px;
+	background-color: #582900;
+	color: #fff;
+	font-size: 18px;
+	padding: 0 20px;
+}
+
+#notepad h1 span {
+	float: right;
+	cursor: pointer;
+}
+
+#content {
+	display: none;
+	z-index: 100;
+	position: absolute;
+	width: 400px;
+	height: 400px;
+	left: 0;
+	top: 0;
+	background-color: #666;
+}
+
+#content h1 a {
+	color: #fff;
+	cursor: pointer;
+}
+
+#content h1 a:hover {
+	color: red;
+}
+
+#content #textarea {
+	padding: 5px;
+	border: 0;
+/* 	overflow-x: hidden; */
+/* 	overflow-y: hidden; */
+/*	这里不需要设置min-height/min-width来固定大小，直接使用height/width也能够达到效果 */
+	height: 355px;
+	width: 388px;
+	max-height: 355px;
+	max-width: 388px;
+	font-size: 14px;
+	line-height: 1.5;
+	color: #333;
+}
+
+#save {
+	float: right;
+	margin-right: 10px;
+}
+
+#list {
+/* 	overflow: hidden; */
+	margin: 15px;
+	height: 330px;
+/*	没有设置overflow的默认值是visible，如果设置overflow-x为hidden，那么overflow-y就是auto了 */
+/* 	overflow-x: hidden; */
+ 	overflow-y: auto;
+	z-index: 99;
+}
+
+#list li {
+	cursor: pointer;
+	padding: 5px 15px;
+	height: 20px;
+	background-color: #fff6c1;
+	border-bottom: 1px solid #fea800;
+}
+
+#list span {
+	float: right;
+}
+
+#list li:hover {
+	background-color: #ffa800;
+	color: #fff;
+}
+</style>
+</head>
+<body>
+	<div id="text">
+		<h1>我的便签</h1>
+		<p>1.用localStorage存储数据 比cookie存储空间大 缺点就是基于支持html5的浏览器</p>
+		<p>2.用toString()把数组转换成string存入localStorage</p>
+		<p>3.把localStorage数据提取显示出来 修改数据 保持到localStorage</p>
+		<p>4.这个实例练习的更多的是对数组的操作 split()把字符串分割为数组 splice()添加修改删除数组</p>
+		<p>5.encodeURIComponent()对数据编码 decodeURIComponent()解码</p>
+		<p>6.由于用的是innerHTML输出li列表 没有做过滤html标签的处理 str含有html标签时会显示成html
+			由于innerText的兼容性问题 这里没有做特殊处理 可以用jquery的text解决</p>
+		<p>7.chrome和firefox是可以本地预览的 ie8 9需要启动本地服务http://localhost/才支持window.localStorage</p>
+	</div>
+
+	<div id="notepad">
+		<h1>
+			<span id="add">+</span>我的便签
+		</h1>
+		<ul id="list"></ul>
+		<div id="content">
+			<h1>
+				<a id="del">×删除</a> <a id="save">√保存</a>
+			</h1>
+			<textarea id="textarea"></textarea>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		(function() {
+			var storage = window.localStorage;
+			var str;
+
+			//判断storage的key notepad 是否为空
+			if (!storage.getItem("notepad")) {
+				str = [];
+			} else {
+				str = storage.getItem("notepad").split(",");
+			}
+
+			//取得日期
+			var date = new Date(), time = (date.getMonth() + 1) + "月"
+					+ date.getDate() + "日";
+
+			//获取元素id
+			var add = document.getElementById("add"), list = document
+					.getElementById("list"), content = document
+					.getElementById("content"), save = document
+					.getElementById("save"), del = document
+					.getElementById("del"), textarea = document
+					.getElementById("textarea");
+
+			//刷新li列表
+			function refreshList() {
+				storage.setItem("notepad", str.toString()); //把数组转换成string存入notepad
+
+				list.innerHTML = "";
+
+				//创建li列表
+				for ( var i = 0; i < str.length; i++) {
+// 					if (str == 0)
+// 						return;
+					var li = document.createElement("li"), title = decodeURIComponent(
+							str[i].split("=")[1]).substring(0, 20), //标题
+					t = str[i].split("=")[0];
+					li.innerHTML = '<span>' + t + '</span>' + title;
+					list.appendChild(li);
+				}
+
+				//点击li显示内容
+				var lis = list.getElementsByTagName("li");
+				for ( var i = 0; i < lis.length; i++) {
+					lis[i].onclick = function() {
+						var con = str[i].split("=")[1]; //标题
+						var num = i;
+						return function() {
+							content.style.display = "block";
+							save.index = num; //把li的index传给save按钮
+							textarea.focus();
+							textarea.value = decodeURIComponent(con);
+						};
+					}(i);
+				}
+
+			}
+
+			save.onclick = function() {
+				content.style.display = "none";
+				var con = time + "=" + encodeURIComponent(textarea.value);
+
+				if (save.index == undefined && textarea.value == "")
+					return;
+
+				//如果li内容为空 从str里删除
+				if (save.index != undefined && textarea.value == "") {
+					str.splice(save.index, 1);
+					refreshList();
+					return;
+				};
+
+				//修改数据
+				if (save.index != undefined) {
+					str.splice(save.index, 1, con);
+					refreshList();
+					return;
+				};
+
+				//第一项插入数据
+				if (save.index == undefined) {
+					if (str.length === 0) {
+						str[0] = con;
+					} else {
+						str.unshift(con);
+					}
+				};
+
+				refreshList();
+			}
+
+			add.onclick = function() {
+				textarea.value = "";
+				save.index = undefined;
+				content.style.display = "block";
+				textarea.focus();
+			}
+
+			del.onclick = function() {
+				if (confirm("确定要删除这条便签吗?")) {
+					if (save.index == undefined) {
+
+					} else {
+						str.splice(save.index, 1);
+					};
+					refreshList();
+					content.style.display = "none";
+				} else {
+					return;
+				};
+			}
+
+			refreshList();
+
+		})();
+	</script>
+</body>
+</html>

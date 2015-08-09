@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Js瀑布流布局(固定4列 滚动条向下加载数据)</title>
+<!-- http://www.cnblogs.com/dtdxrk/archive/2012/09/19/2693138.html -->
+<style type="text/css">
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font: 12px "微软雅黑", arial, \5b8b\4f53, sans-serif;
+	background: #efefef;
+	line-height: 1.5;
+}
+
+#text {
+	background: green;
+	color: #fff;
+	padding-bottom: 10px;
+}
+
+#warp {
+	width: 960px;
+	margin: 10px auto 0;
+	overflow: auto;
+}
+
+#warp ul {
+	float: left;
+	width: 240px;
+	list-style-type: none;
+}
+
+#warp ul li {
+	border: 1px solid #ccc;
+	background: #fff;
+	width: 220px;
+	margin-bottom: 10px;
+}
+
+#warp ul li img {
+	display: block;
+	margin: 10px auto;
+}
+
+#warp ul li p {
+	text-align: center;
+	font-size: 12px;
+	margin-bottom: 10px;
+}
+</style>
+
+</head>
+<body>
+	<div id="text">
+		<h1>Js瀑布流布局(固定4列 滚动条向下加载数据)</h1>
+		<p>1.添加4个ul并列显示 添加数据结构</p>
+		<p>2.随机分配15张图片到li里 http://vvgr.svfree.net/Waterfull/images/01.jpg - 15.jpg</p>
+		<p>3.当滚动条快移动到页面底部时 添加li</p>
+	</div>
+	<div id="warp"></div>
+	<script type="text/javascript">
+		(function() {
+			var warp = document.getElementById("warp");
+
+			//添加4个ul 增加li
+			for ( var i = 0; i < 4; i++) {
+				var ul = document.createElement("ul");
+				for ( var m = 1; m < 5; m++) {
+					var li = document.createElement("li"), number = random();
+					li.innerHTML = "<img src='http://vvgr.svfree.net/Waterfull/images/"+ number +".jpg'><p>"
+							+ number + ".jpg</p>"
+					ul.appendChild(li);
+				}
+				warp.appendChild(ul);
+			}
+
+			//15个随机数
+			function random() {
+				var number = Math.round(Math.random() * 15);
+				if (number == 0)
+					number = "15";
+				if (number < 10)
+					number = "0" + number;
+				return number;
+			}
+
+			window.onscroll = function() {
+				var pageHeight = document.documentElement.scrollHeight || document.body.scrollHeight, //获取页面总高度（总高度 = 卷去高度 + 可视区域高度）
+				getScrollTop = document.documentElement.scrollTop || document.body.scrollTop, // 获取页面卷去的高度
+				bodyHeight = document.documentElement.clientHeight || document.body.clientHeight; //获取页面可视区域高度
+				if (getScrollTop + bodyHeight + 300 > pageHeight) {
+					var uls = warp.getElementsByTagName("ul");
+					for ( var i = 0; i < uls.length; i++) {
+						var li = document.createElement("li"), number = random();
+						li.innerHTML = "<img src='http://vvgr.svfree.net/Waterfull/images/"+ number +".jpg'><p>" + number + ".jpg</p>"
+						uls[i].appendChild(li);
+					}
+				}
+			}
+		})();
+	</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Js 倒计时 "已经阅读"</title>
+<!-- http://www.cnblogs.com/dtdxrk/archive/2012/02/07/2341474.html -->
+</head>
+<body>
+	<input type="button" value="我已阅读" id="Reader" disabled="disabled" />
+	<input type="button" value="我同意" id="Yes" disabled="disabled" />
+
+	<script type="text/javascript">
+		var countDown = {
+			time : 5,
+			bind : function(obj, func) {
+				return function() {
+					func.apply(obj, arguments);
+				}
+			},
+			yes : function() {
+				console.info(this.time);
+				var txt = "倒计时";
+				txt += this.time--;
+				document.getElementById("Reader").setAttribute("value", txt);
+				if (this.time >= 0) {
+					setTimeout(this.bind(this, this.yes), 1000);
+// 					var that = this;
+// 					setTimeout(function(){that.yes()}, 1000);
+				} else {
+					document.getElementById("Yes").removeAttribute("disabled");
+					document.getElementById("Reader").style.display = "none";
+				}
+			}
+
+		}
+		countDown.yes();
+	</script>
+</body>
+</html>

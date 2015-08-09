@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>border-radius</title>
+<meta charset="utf-8" />
+<style type="text/css">
+#container {
+	-webkit-border-radius: 40px 30px 60px 100px;
+	-moz-border-radius: 40px 30px 60px 100px;
+	-o-border-radius: 40px 30px 60px 100px;
+	border-radius: 40px 30px 60px 100px;
+}
+
+/* alternative syntax broken into each line */
+#container {
+	-webkit-border-top-left-radius: 40px;
+	-webkit-border-top-right-radius: 30px;
+	-webkit-border-bottom-right-radius: 60px;
+	-webkit-border-bottom-left-radius: 100px;
+	-moz-border-radius-topleft: 40px;
+	-moz-border-radius-topright: 30px;
+	-moz-border-radius-bottomright: 60px;
+	-moz-border-radius-bottomleft: 100px;
+}
+</style>
+</head>
+<body>
+	<div id="container" style="margin: 50px auto; width: 500px;height: 300px; background: red;"></div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>scrollIntoView</title>
+<style>
+div {
+	height: 100px;
+	width: 1000px;
+	margin: 10px 0;
+	background-color: red;
+	font-size: 80px;
+	text-align: center;
+}
+</style>
+</head>
+<body>
+	<script type="text/javascript">
+	var pInfo;
+	for (var i = 0; i < 10; i++) {
+		var d = document.createElement("div");
+		d.id = "d" + i;
+		d.innerText = i;
+		document.body.appendChild(d);
+	}
+	document.onclick = function() {
+		var t = document.getElementById("d2");
+		t.scrollIntoView();
+		pInfo = t.getBoundingClientRect();
+		console.info(pInfo);
+// 		ClientRect {
+// 			bottom: 100,
+// 			height: 100,
+// 			left: 8,
+// 			right: 1008,
+// 			top: 0,
+// 			width: 100
+// 		}
+	}
+	</script>
+</body>
+</html>

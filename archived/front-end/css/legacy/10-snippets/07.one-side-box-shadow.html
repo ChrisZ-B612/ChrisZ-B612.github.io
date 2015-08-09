@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>7. Showing Box Shadow Only On One Or Two Sides</title>
+<style type="text/css">
+.box-shadow {
+	background-color: #FF8020;
+	width: 200px;
+	height: 200px;
+	margin-top: -100px;
+	margin-left: -100px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+}
+
+.box-shadow:after {
+	content: "";
+	width: 180px;
+	height: 1px;
+	margin-top: 198px;
+	margin-left: -90px;
+	display: block;
+	position: absolute;
+	left: 50%;
+	z-index: -1;
+	-webkit-box-shadow: 0px 0px 10px 4px #000000;
+	-moz-box-shadow: 0px 0px 10px 4px #000000;
+	box-shadow: 0px 0px 10px 4px #000000;
+}
+</style>
+</head>
+<body>
+	<div class="box-shadow"></div>
+</body>
+</html>

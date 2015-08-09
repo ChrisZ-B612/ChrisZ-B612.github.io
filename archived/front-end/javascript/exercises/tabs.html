@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>js TAB选项卡</title>
+<!-- http://www.cnblogs.com/dtdxrk/archive/2012/07/05/2578090.html -->
+<style type="text/css">
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+body {
+	font-size: 12px;
+}
+
+.usual {
+	background-color: #CC0066;
+	color: #111;
+	padding: 15px 20px;
+	width: 500px;
+	border: 1px solid #222;
+	margin: 8px auto;
+}
+
+.usual ul {
+	overflow: auto;
+}
+
+.usual ul li {
+	float: left;
+}
+
+.usual ul li a {
+	display: block;
+	padding: 6px 10px;
+	text-decoration: none;
+ 	margin-right: 1px;
+	font: 10px Verdana;
+	color: #FFF;
+	background-color: #444;
+}
+
+.usual ul a:hover {
+	background-color: #111;
+}
+
+.usual ul a.selected {
+	color: #000;
+	background-color: snow;
+	border-bottom: 1px solid snow;
+	cursor: default;
+}
+
+.usual > div {
+	padding: 10px 10px 8px 10px;
+	*padding-top: 3px;
+	*margin-top: -15px;
+	clear: left;
+	background-color: snow;
+	font: 10pt Georgia;
+}
+</style>
+</head>
+
+<body>
+
+	<div id="usual1" class="usual">
+		<ul>
+			<li><a href="#" class="selected">Tab 1</a></li>
+			<li><a href="#">Tab 2</a></li>
+			<li><a href="#">Tab 3</a></li>
+		</ul>
+		<div id="conTabs1" style="display: block;">This is tab 1.</div>
+		<div id="conTabs2" style="display: none;">More content in tab 2.</div>
+		<div id="conTabs3" style="display: none;">
+			Tab 3 is always last!
+			<div>Tab 3 is always last!</div>
+		</div>
+	</div>
+
+	<div id="usual2" class="usual">
+		<ul>
+			<li><a href="#" class="selected">Tab 1</a></li>
+			<li><a href="#">Tab 2</a></li>
+			<li><a href="#">Tab 3</a></li>
+		</ul>
+		<div id="wa1" style="display: block;">This is tab 1.</div>
+		<div id="wa2" style="display: none;">More content in tab 2.</div>
+		<div id="wa3" style="display: none;">
+			Tab 3 is always last!
+			<div>Tab 3 is always last!</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		function myTabs(tabId, conIds) {
+
+			var tabDIV = document.getElementById(tabId), lis = tabDIV
+					.getElementsByTagName("ul")[0].getElementsByTagName("li"), lisNum = lis.length;
+
+			for ( var i = 0; i < lisNum; i++) {
+
+				lis[i].setAttribute("index", i + 1); //给每个li加一个自定义属性保存index
+				lis[i].onclick = function() {
+
+					var num = this.getAttribute("index");
+
+					//删除元素的样式
+					for ( var n = 0; n < lisNum; n++) {
+						lis[n].children[0].setAttribute("class", ""); //删除a元素的class
+						document.getElementById(conIds + (n + 1)).style.display = "none";
+					};
+
+					this.children[0].setAttribute("href", "javascript:return false;");
+					this.children[0].setAttribute("class", "selected"); //a元素添加class=selected
+
+					document.getElementById(conIds + num).style.display = "block";
+				}
+
+			};
+
+		}
+
+		myTabs("usual1", "conTabs");
+		myTabs("usual2", "wa");
+	</script>
+</body>
+</html>

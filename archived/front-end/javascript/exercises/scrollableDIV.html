@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="content-type" charset="utf-8" />
+<title>Js跟随滚动条移动的DIV</title>
+<!-- http://www.cnblogs.com/dtdxrk/archive/2012/08/22/2650293.html -->
+</head>
+<style type="text/css">
+* {
+	margin: 0;
+	padding: 0;
+	background-color: #000;
+}
+
+div#con {
+	width: 800px;
+	height: 2000px;
+	margin: 0 auto;
+}
+
+p {
+	width: 800px;
+	padding: 20px 0;
+	background: #fff;
+	margin: 20px auto;
+	text-align: center;
+}
+
+.pop {
+	background: yellow;
+}
+
+.active {
+	position: fixed;
+	_position: absolute;
+	background: yellow;
+/* 	display: block; */
+	margin: 0;
+	top: 0;
+}
+</style>
+<body>
+
+	<div id="con">
+		<p>我是元素p</p>
+
+		<p id="myDiv" class="pop">我是要随屏幕滚动的DIV</p>
+
+		<p>我是元素p</p>
+	</div>
+
+
+	<script type="text/javascript">
+		function getPosition(obj) { //获取元素的位置
+			var top = 0, left = 0, width = obj.offsetWidth, height = obj.offsetHeight;
+			while (obj.offsetParent) {
+				top += obj.offsetTop;
+				left += obj.offsetLeft;
+				obj = obj.offsetParent;
+			}
+			return {
+				"top" : top,
+				"left" : left,
+				"width" : width,
+				"height" : height
+			};
+		}
+		/*
+		divID = 元素id
+		firstTop = 元素起始位置
+		 */
+		function scrollDiv(divID, firstTop) {
+			this.firstTop = getPosition(this.$(divID)).top;
+			this.onscroll(divID);
+		}
+		var onscrollCount = 0, sDivCount = 0;
+		scrollDiv.prototype = {
+			$ : function(id) {
+				return document.getElementById(id)
+			},
+
+			timer : "", //定时器
+
+			onscroll : function(divID) {
+				var that = this;
+				window.onscroll = function() {
+					onscrollCount++;
+					//这里的Timeout用的很好，可以在滚动很快的情况下有效提高效率。
+					clearTimeout(that.timer);
+					that.timer = setTimeout(function() {
+						that.sDiv(divID);
+					}, 50);
+				}
+
+			},
+
+			sDiv : function(divID) {
+				sDivCount++;
+				var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+
+				if (!!window.ActiveXObject && !window.XMLHttpRequest) { //ie6
+
+					if (scrollTop >= this.firstTop) {
+						this.$(divID).className = "active";
+						this.$(divID).style.top = scrollTop + "px";
+					} else {
+						this.$(divID).className = "pop";
+					}
+
+				} else { //其它浏览器
+					scrollTop >= this.firstTop ? this.$(divID).className = "active" : this.$(divID).className = "pop";
+				}
+				console.info(onscrollCount + " : " + sDivCount);
+			}
+
+		}
+
+		var myDiv = new scrollDiv("myDiv");
+	</script>
+</body>
+</html>

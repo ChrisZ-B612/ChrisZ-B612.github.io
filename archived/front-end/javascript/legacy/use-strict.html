@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>JavaScript Battlefield</title>
+</head>
+<body>
+	<script type="text/javascript">
+	"use strict";
+	var funcs = [];
+	// Prevents accidental globals
+	funcs.push(function() {
+		(function() {
+			var a = b = 3;
+		})();
+		console.log(b);
+	});
+	
+	// Eliminates this coercion
+	funcs.push(function() {
+		(function() {
+			console.log(this, this.nothing);
+		}).call(null);
+	});
+	
+	// Disallows duplicate property names or parameter values
+	funcs.push(function(arg1, arg1) {
+		var foo = {name: "Chris", name: "Chris"};
+	});
+	
+	// Makes eval() safer
+	funcs.push(function() {
+		(function() {
+			eval("var age = 27;(function() {console.log('inner scope: ', age);})();");//有点没明白这里是什么意思
+			console.log("outer scope: ", age);
+		})();
+	});
+	
+	// Throws error on invalid usage of delete
+	funcs.push(function() {
+		console.log(delete Object.prototype);
+	});
+	
+	funcs.pop()();
+	</script>
+</body>
+</html>

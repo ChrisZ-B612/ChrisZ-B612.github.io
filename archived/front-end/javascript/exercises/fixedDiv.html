@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="content-type" charset="utf-8" />
+<title>简单网页效果--固定div位置</title>
+<!-- http://www.cnblogs.com/huzhiming/archive/2012/12/14/2817720.html -->
+</head>
+<style type="text/css">
+* {
+	margin: 0;
+	padding: 0;
+	background-color: #000;
+}
+
+div#con {
+	width: 800px;
+	margin: 0 auto;
+}
+
+div.pop {
+	width: 800px;
+	font-size: 18px;
+	background: yellow;
+	padding: 20px 0;
+	border: 1px solid yellow;
+	text-align: center;
+/* 	color: #000; */
+}
+
+p {
+	width: 800px;
+	padding: 20px 0;
+	background: #fff;
+	border: 1px solid #000;
+	margin: 20px 0;
+	text-align: center;
+}
+
+div.active {
+	position: fixed;
+	top: 100px;
+	z-index: 100;
+	margin: 0;
+	_position: absolute;
+}
+</style>
+<body>
+	<div id="con" style="height: 2000px;">
+		<p>我是元素p</p>
+		<div id="myDiv" class="pop active">
+			我是随屏幕滚动的DIV，我距离顶部高度适中为100px，修改css就可以修改该值
+		</div>
+		<p>我是元素p</p>
+		<p>我是元素p</p>
+		<p>我是元素p</p>
+		<p>我是元素p</p>
+		<p>我是元素p</p>
+		<p>我是元素p</p>
+		<p>我是元素p</p>
+		<p>我是元素p</p>
+		<p>我是元素p</p>
+		<p>我是元素p</p>
+		<p>我是元素p</p>
+		<p>我是元素p</p>
+		<p>我是元素p</p>
+		<p style="color: red; position: fixed; top: 400px;">我是元素top:400px;看是否支持固定定位</p>
+	</div>
+	<script type="text/javascript">
+		(function() {
+			//if(navigator.userAgent.toLocaleLowerCase().indexOf('msie 6.0;')>1){
+			alert(navigator.userAgent.toLocaleLowerCase());
+			if (checkFixed()) {
+				return;
+			}//只需对不支持固定定位的浏览器做处理
+
+			//将下面需要使用的dom相关操作在scrollDiv外面提取一次，避免多次dom操作
+			var fixedObj = document.getElementById("myDiv"), height = fixedObj.offsetHeight, //标签高度提前读取出来
+			firstTop = getTop(fixedObj), //记录页面一开始标签所在位置
+			timer;
+			window.onscroll = function() {//这里做个延时执行，可以减少scroll执行频率
+				clearTimeout(timer);
+				timer = setTimeout(function() {
+					scrollDiv()
+				}, 30);
+			}
+
+			function scrollDiv() {
+				var scrollTop = document.documentElement.scrollTop
+						|| document.body.scrollTop;
+				fixedObj.style.top = (firstTop + scrollTop) + 'px';
+			}
+			//获取元素在页面里top值
+			function getTop(obj) {
+				var top = 0;
+				while (obj) {
+					top += obj.offsetTop;
+					obj = obj.offsetParent;
+				}
+				return top;
+			}
+			//判断浏览器是否支持固定定位
+			function checkFixed() {
+				var o = document.createElement('div'), body = document.getElementsByTagName('body')[0], fig = false;
+				body.insertBefore(o, body.firstChild);
+				o.style.cssText = "position:fixed;top:20px;margin:0;padding:0;border:none;width:0px;height:0px;";
+				fig = o.offsetTop == 20;
+				body.removeChild(o);
+				return fig;
+			}
+		})()
+	</script>
+</body>
+</html>

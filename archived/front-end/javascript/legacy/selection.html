@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Selection</title>
+<style>
+body {
+	height: 200px;
+	border: 1px solid red;
+}
+</style>
+</head>
+<body>
+	<p>See here for <b>working</b> jsFiddle</p>
+	<script type="text/javascript">
+	function getSelectionText() {
+		var text = "";
+		if (window.getSelection) {//IE9 implements window.getSelection()
+			text = window.getSelection().toString();
+		/**
+		 * The document.selection.type check is testing that the selection is a text selection
+		 * rather than a control selection. In IE, a control selection is a selection inside an 
+		 * editable element containing one or more elements (such as images and form controls) with
+		 * outlines and resize handles. If you call .createRange() on such a selection, you get a ControlRange
+		 * rather than a TextRange, and ControlRanges have no text property.
+		 */
+		}  else if (document.selection && document.selection.type != "Control") {//for IE<=8
+			text = document.selection.createRange().text;
+		}
+		console.info(text);
+	};
+	
+	function getSelectionHtml() {
+		var html = "";
+		if (typeof window.getSelection != "undefined") {
+			var sel = window.getSelection();
+			if (sel.rangeCount) {
+				var container = document.createElement("div");
+				for (var i = 0, len = sel.rangeCount; i < len; ++i) {
+					container.appendChild(sel.getRangeAt(i).cloneContents());
+				}
+				html = container.innerHTML;
+			}
+		} else if (typeof document.selection != "undefined") {
+			if (document.selection.type == "Text") {
+				html = document.selection.createRange().htmlText;
+			}
+		}
+		console.info(html);
+	}
+	
+	function replaceSelectionWithHtml(html) {
+		var range, html;
+		if (window.getSelection && window.getSelection().getRangeAt) {
+			range = window.getSelection().getRangeAt(0);
+			range.deleteContents();
+			var div = document.createElement("div");
+			div.innerHTML = html;
+			var frag = document.createDocumentFragment(), child;
+			while ((child = div.firstChild)) {
+				frag.appendChild(child);
+			}
+			range.insertNode(frag);
+		} else if (document.selection && document.selection.createRange) {
+			range = document.selection.createRange();
+			range.pasteHTML(html);
+		}
+	}
+
+	function replaceSelectionWithNode(node) {
+	    var range, html;
+	    if (window.getSelection && window.getSelection().getRangeAt) {
+	        range = window.getSelection().getRangeAt(0);
+	        range.deleteContents();
+	        range.insertNode(node);
+	    } else if (document.selection && document.selection.createRange) {
+	        range = document.selection.createRange();
+	        html = (node.nodeType == 3) ? node.data : node.outerHTML;
+	        range.pasteHTML(html);
+	    }
+	}
+
+	function testReplaceSelectionWithHtml() {
+	 	replaceSelectionWithHtml("<b>REPLACEMENT HTML</b>");
+	}
+	
+	function testReplaceSelectionWithNode() {
+	 	var el = document.createElement("b");
+	 	el.appendChild(document.createTextNode("testing"));
+	 	replaceSelectionWithNode(el);		
+	}
+	
+	document.onmouseup = getSelectionText;
+	</script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>js运动速度计算器</title>
+<!-- http://jsfiddle.net/dtdxrk/eDLET/embedded/result/ -->
+<style type="text/css">
+* {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+table {
+	width: 600px;
+	margin: 100px auto;
+	font-size: 12px;
+	text-align: center;
+	border-collapse: collapse;
+}
+
+table th {
+	font-size: 14px;
+	font-weight: bold;
+	background-color: #e9eef2;
+}
+
+table,table th,table td {
+	padding: 10px;
+	border: 1px solid #ccc;
+}
+
+input.text {
+	width: 30px;
+	font-size: 14px;
+	padding: 1px 2px;
+}
+
+input#Calculator {
+	padding: 5px;
+}
+
+strong#Result {
+	font-size: 14px;
+	color: red;
+}
+</style>
+</head>
+
+<body>
+	<table>
+		<tr>
+			<th>距离(km)</th>
+			<th>%</th>
+			<th>时间</th>
+			<th>=</th>
+			<th>速度(km/h)</th>
+		</tr>
+		<tr>
+			<td><input type="text" class="text" id="Distance" /></td>
+			<td>%</td>
+			<td><input type="text" class="text" id="Hour" />小时 <input
+				type="text" class="text" id="Minute" />分</td>
+			<td><input type="button" value="计算速度" id="Calculator" /></td>
+			<td><strong id="Result">结果</strong></td>
+		</tr>
+	</table>
+	<script type="text/javascript">
+		var Calculator = document.getElementById("Calculator"), Distance = document
+				.getElementById("Distance"), Hour = document
+				.getElementById("Hour"), Minute = document
+				.getElementById("Minute"), Result = document
+				.getElementById("Result");
+
+		function noNumbers(e) { //只能键入数字
+			var keynum, keychar, numcheck;
+			if (window.event) { // IE or Chrome
+				keynum = e.keyCode;
+			} else if (e.which) {// Netscape/Firefox/Opera
+				keynum = e.which;
+			}
+
+			keychar = String.fromCharCode(keynum);
+			numcheck = /[^\d]/;
+			return !numcheck.test(keychar);
+		}
+
+		Distance.onkeypress = function(e) {
+			return noNumbers(e)
+		}
+		Hour.onkeypress = function(e) {
+			return noNumbers(e)
+		}
+		Minute.onkeypress = function(e) {
+			return noNumbers(e)
+		}
+
+		//onpaste "return false" 的目的是禁用鼠标右键的“粘贴”菜单，可以防止鼠标右键或者Ctrl + V粘贴不合法的数据。
+		//PS:右键没有disable掉，只是粘贴会失效，简单返回false不是个好办法。
+		Distance.onpaste = function() {
+			return false;
+		}
+		Hour.onpaste = function() {
+			return false;
+		}
+		Minute.onpaste = function() {
+			return false;
+		}
+
+		Calculator.onclick = function() {
+			var Time = Number(Hour.value)
+					+ Number(parseInt(Minute.value / 60)
+							+ (Minute.value % 60 / 60)), //转换时间
+			Speed = (Distance.value / Time).toFixed(2); //只取到小数点后两位
+
+			if (Distance.value == "" || Hour.value == "" && Minute.value == "") {
+				Result.innerHTML = "结果";
+				alert("距离和时间不能为空！");
+			} else if (Speed == "NaN") {
+				alert("距离或时间格式不正确!");
+			} else {
+				Result.innerHTML = Speed + " km/h";
+			}
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>6. CSS Table Column Autowidth</title>
+<style type="text/css">
+body {
+	font: 14px sans-serif;
+}
+
+table {
+	width: 300px;
+	font: 16px sans-serif;
+	border-collapse: collapse;
+}
+
+td {
+	border: 1px solid #ccc;
+	padding: 5px 10px;
+}
+
+table.autowidth td {
+	white-space: nowrap;
+}
+</style>
+</head>
+<body>
+	<h2>Non Autowidth Table</h2>
+
+	<table>
+		<tr>
+			<td>1</td>
+			<td width="100%">Mr. John Doe</td>
+			<td>United States of America</td>
+			<td>2014</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td width="100%">Mr. Paul Jones</td>
+			<td>New Zealand</td>
+			<td>2013</td>
+		</tr>
+	</table>
+
+	<h2>Autowidth Table</h2>
+
+	<table class="autowidth">
+		<tr>
+			<td>1</td>
+			<td width="100%">Mr. John Doe</td>
+			<td>United States of America</td>
+			<td>2014</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td width="100%">Mr. Paul Jones</td>
+			<td>New Zealand</td>
+			<td>2013</td>
+		</tr>
+	</table>
+</body>
+</html>

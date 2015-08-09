@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>addEventListener和attachEvent的区别</title>
+<meta charset="utf-8" />
+<script type="text/javascript" src="_IE.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+		(function() {
+			var ltie9 = _IE && _IE < 9;
+			//IE9两种方式都支持，不过老IE的事件添加和执行顺序改成了与Chrome一样的先加入先执行
+			if (ltie9) {
+				IEWay(true);
+			} else {
+				ChromeWay(true, false);
+			}
+			window.onbeforeunload = function() {
+				if (ltie9) {
+					IEWay(false);
+				} else {
+					ChromeWay(false, false);
+				}
+			}
+			
+			function func1() {
+				console.info("func1");
+			}
+			function func2() {
+				console.info("func2");
+			}
+			function func3() {
+				console.info("func3");
+			}
+			
+			function ChromeWay(flag, useCapture) {
+				if (flag) {
+					document.addEventListener("click", func1, useCapture);
+					document.addEventListener("click", func2, useCapture);
+					document.addEventListener("click", func3, useCapture);
+				} else {
+					document.removeEventListener("click", func1, useCapture);
+					document.removeEventListener("click", func2, useCapture);
+					document.removeEventListener("click", func3, useCapture);
+				}
+			}
+			function IEWay(flag) {
+				if (flag) {
+					document.attachEvent("onclick", func1);
+					document.attachEvent("onclick", func2);
+					document.attachEvent("onclick", func3);
+				} else {
+					document.detachEvent("onclick", func1);
+					document.detachEvent("onclick", func2);
+					document.detachEvent("onclick", func3);
+				}
+			}
+		})();
+	</script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Refresh" content="10; URL=http://www.jd.com" />
+<title>createTextRange</title>
+</head>
+<body>
+	<form onsubmit="return false;" action="dummy">
+		<input name="textfield" value="&lt;Enter data here&gt;" />
+		<input type="submit" value="Submit" />
+	</form>
+	<script type="text/javascript">
+		window.onload = function() {
+			var field = document.forms[0].elements["textfield"];
+			var originalData = field.value;
+			if (field.createTextRange) {//Chrome
+				var range = field.createTextRange();
+				range.moveStart("character", 0);
+				range.moveEnd("character", originalData.length - 1);
+				range.select();
+			} else if (field.setSelectionRange) {//IE
+				field.setSelectionRange(0, field.value.length);
+			}
+			field.focus();
+			field.onclick = function() {
+				if (this.value === originalData) {
+					this.vlaue = "";
+				}
+			}
+		}
+	</script>
+</body>
+</html>

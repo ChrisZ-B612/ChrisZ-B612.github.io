@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="content-type" />
+<title>Centering using Flexbox</title>
+<style type="text/css">
+.outer {
+	height: 500px;
+	margin: 0 auto;
+	border: solid #6AC5AC 3px;
+}
+
+.inner {
+	width: 80%;
+	height: 100px;
+	border: solid #FDC72F 3px;
+}
+
+.vertical-container {
+	display: -webkit-flex;
+	display: flex;
+	-webkit-align-items: center;
+	align-items: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+}
+</style>
+</head>
+<body>
+	<div class="outer vertical-container">
+		<div class="inner">Fixed width & height</div>
+	</div>
+</body>
+</html>
