@@ -3,9 +3,59 @@
 <head>
 <meta charset="utf-8">
 <title>JavaScript Battlefield</title>
+    <!--<script src="./legacy/sorting.js"></script>-->
+    <script src="./legacy/base64.js"></script>
 </head>
 <body>
 	<script type="text/javascript">
+        (function () {
+            var arr = generateArray(100000);
+//            var arr = [3, 1, 5, 8, 1, 2];
+            var ascending = false;
+            for (var alg in sorting) {
+                if (~[
+//                        "bubble",
+//                        "select",
+//                        "insert",
+//                        "shell",
+//                        "merge",
+//                        "heap"
+                    ].indexOf(alg)) continue;
+                var myArr = arr.slice(0);
+                console.time(alg);
+                sorting[alg](myArr, ascending);
+                console.timeEnd(alg);
+                isOrdered(myArr, ascending) || console.error("Sorting by [%s] failed:(", alg);
+            }
+
+            function isOrdered(arr, ascending) {
+                var isOrdered = true;
+                for (var i = 1; i < arr.length; i++) {
+                    var res = arr[i - 1] - arr[i];
+                    if (res !== 0 && res > 0 === ascending) {
+                        isOrdered = false;
+                        break;
+                    }
+                }
+                return isOrdered;
+            }
+
+            function generateArray(length) {
+                var arr = [];
+                for (var i = 0; i < length; i++) {
+                    arr.push(Math.round(Math.random() * length * 10));
+                }
+                return arr;
+            }
+        });
+
+        (function () {
+            var msg = base64.encode("keep calm and carry on");
+            console.log(msg);
+            console.log(base64.decode(msg));
+        })();
+
+
 	</script>
 </body>
 </html>
