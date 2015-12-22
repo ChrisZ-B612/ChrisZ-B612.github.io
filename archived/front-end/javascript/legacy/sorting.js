@@ -56,81 +56,7 @@
                 gap = Math.floor(gap / divider);// 这里一定要舍精度，否则就会粗大事！
             }
         },
-        merge: function (arr, ascending) {// 5、归并排序
-            sort(arr, 0, arr.length, ascending);
-
-            function sort(arr, start, end, ascending) {
-                var length = end - start;
-                if (length <= 50) {
-                    for (var i = start + 1; i < end; i++) {
-                        var tmp = arr[i], j;
-                        for (j = i - 1; j >= start; j--) {
-                            var res = arr[j] - tmp;
-                            if (res === 0 || res < 0 === ascending) break;
-                            arr[j + 1] = arr[j];
-                        }
-                        arr[j + 1] = tmp;
-                    }
-                    return;
-                }
-                var middle = Math.round((start + end) / 2);
-                sort(arr, start, middle, ascending);
-                sort(arr, middle, end, ascending);
-                merge(arr, start, middle, end, ascending);
-            }
-
-            function merge(arr, start, middle, end, ascending) {
-                var leftEndCompareToRightStart = arr[middle - 1] - arr[middle];
-                if (leftEndCompareToRightStart === 0 || leftEndCompareToRightStart < 0 === ascending) return;
-
-                var length = end - start, kakashi = arr.slice(start, end);
-                var leftIdx = 0, splitIdx = middle - start, rightIdx = splitIdx, index = start;
-                while (leftIdx < splitIdx && rightIdx < length) {
-                    if (kakashi[leftIdx] === kakashi[rightIdx]) {
-                        arr[index++] = kakashi[leftIdx++];
-                        arr[index++] = kakashi[rightIdx++];
-                    } else if (kakashi[leftIdx] - kakashi[rightIdx] < 0 === ascending) {
-                        arr[index++] = kakashi[leftIdx++];
-                    } else if (kakashi[rightIdx] - kakashi[leftIdx] < 0 === ascending) {
-                        arr[index++] = kakashi[rightIdx++];
-                    }
-                }
-                if (leftIdx < splitIdx) {
-                    Array.prototype.splice.apply(arr, [index, splitIdx - leftIdx].concat(kakashi.slice(leftIdx, splitIdx)));
-                } else if (rightIdx < length) {
-                    Array.prototype.splice.apply(arr, [index, length - rightIdx].concat(kakashi.slice(rightIdx, length)));
-                }
-            }
-        },
-        quick: function (arr, ascending) {// 6、快速排序
-            sort(arr, 0, arr.length, ascending);
-
-            function sort(arr, start, end, ascending) {
-                if (start >= end - 1) return;// 跳出递归
-                var holeIndex = start, holeValue = arr[holeIndex], leftIndex = start + 1, rightIndex = end - 1, leftToRight = false;
-                while (leftIndex <= rightIndex) {
-                    if (leftToRight) {
-                        while (leftIndex <= rightIndex && arr[leftIndex] - holeValue > 0 !== ascending) leftIndex++;
-                        if (leftIndex <= rightIndex) {
-                            arr[holeIndex] = arr[leftIndex];
-                            holeIndex = leftIndex++;
-                            leftToRight = false;
-                        }
-                    } else {
-                        while (leftIndex <= rightIndex && arr[rightIndex] - holeValue < 0 !== ascending) rightIndex--;
-                        if (leftIndex <= rightIndex) {
-                            arr[holeIndex] = arr[rightIndex];
-                            holeIndex = rightIndex--;
-                            leftToRight = true;
-                        }
-                    }
-                }
-                arr[holeIndex] = holeValue;
-                sort(arr, start, holeIndex, ascending);
-                sort(arr, holeIndex + 1, end, ascending);
-            }
-        },
-        heap: function (arr, ascending) {// 7、堆排序
+        heap: function (arr, ascending) {// 5、堆排序
             sort(arr, 3, ascending);
 
             function sort(arr, N, ascending) {
@@ -176,6 +102,80 @@
                     } else break;
                 }
                 arr[holeIndex] = holeValue;
+            }
+        },
+        merge: function (arr, ascending) {// 6、归并排序
+            sort(arr, 0, arr.length, ascending);
+
+            function sort(arr, start, end, ascending) {
+                var length = end - start;
+                if (length <= 50) {
+                    for (var i = start + 1; i < end; i++) {
+                        var tmp = arr[i], j;
+                        for (j = i - 1; j >= start; j--) {
+                            var res = arr[j] - tmp;
+                            if (res === 0 || res < 0 === ascending) break;
+                            arr[j + 1] = arr[j];
+                        }
+                        arr[j + 1] = tmp;
+                    }
+                    return;
+                }
+                var middle = Math.round((start + end) / 2);
+                sort(arr, start, middle, ascending);
+                sort(arr, middle, end, ascending);
+                merge(arr, start, middle, end, ascending);
+            }
+
+            function merge(arr, start, middle, end, ascending) {
+                var leftEndCompareToRightStart = arr[middle - 1] - arr[middle];
+                if (leftEndCompareToRightStart === 0 || leftEndCompareToRightStart < 0 === ascending) return;
+
+                var length = end - start, kakashi = arr.slice(start, end);
+                var leftIdx = 0, splitIdx = middle - start, rightIdx = splitIdx, index = start;
+                while (leftIdx < splitIdx && rightIdx < length) {
+                    if (kakashi[leftIdx] === kakashi[rightIdx]) {
+                        arr[index++] = kakashi[leftIdx++];
+                        arr[index++] = kakashi[rightIdx++];
+                    } else if (kakashi[leftIdx] - kakashi[rightIdx] < 0 === ascending) {
+                        arr[index++] = kakashi[leftIdx++];
+                    } else if (kakashi[rightIdx] - kakashi[leftIdx] < 0 === ascending) {
+                        arr[index++] = kakashi[rightIdx++];
+                    }
+                }
+                if (leftIdx < splitIdx) {
+                    Array.prototype.splice.apply(arr, [index, splitIdx - leftIdx].concat(kakashi.slice(leftIdx, splitIdx)));
+                } else if (rightIdx < length) {
+                    Array.prototype.splice.apply(arr, [index, length - rightIdx].concat(kakashi.slice(rightIdx, length)));
+                }
+            }
+        },
+        quick: function (arr, ascending) {// 7、快速排序
+            sort(arr, 0, arr.length, ascending);
+
+            function sort(arr, start, end, ascending) {
+                if (start >= end - 1) return;// 跳出递归
+                var holeIndex = start, holeValue = arr[holeIndex], leftIndex = start + 1, rightIndex = end - 1, leftToRight = false;
+                while (leftIndex <= rightIndex) {
+                    if (leftToRight) {
+                        while (leftIndex <= rightIndex && arr[leftIndex] - holeValue > 0 !== ascending) leftIndex++;
+                        if (leftIndex <= rightIndex) {
+                            arr[holeIndex] = arr[leftIndex];
+                            holeIndex = leftIndex++;
+                            leftToRight = false;
+                        }
+                    } else {
+                        while (leftIndex <= rightIndex && arr[rightIndex] - holeValue < 0 !== ascending) rightIndex--;
+                        if (leftIndex <= rightIndex) {
+                            arr[holeIndex] = arr[rightIndex];
+                            holeIndex = rightIndex--;
+                            leftToRight = true;
+                        }
+                    }
+                }
+                arr[holeIndex] = holeValue;
+                sort(arr, start, holeIndex, ascending);
+                sort(arr, holeIndex + 1, end, ascending);
             }
         }
     };
