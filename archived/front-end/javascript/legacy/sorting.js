@@ -1,8 +1,8 @@
 /**
- * Created by biao.zhang on 2015/12/21.
+ * Created by Chris, Z on 2015/12/22 14:45.
  */
 (function (window, undefined) {
-    window.sorting = window.sorting || {
+    window.sorting = window.sorting = {
         bubble: function (arr, ascending) {// 1、冒泡排序
             for (var i = arr.length - 1, ceil = -1/* 优化一 */; i > 0; i--) {
                 var isOrdered = true;// 优化二
