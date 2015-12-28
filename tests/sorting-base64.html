@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Sorting & Base64</title>
+    <script src="../front-end/javascript/legacy/sorting.js"></script>
+    <script src="../front-end/javascript/legacy/base64.js"></script>
+</head>
+<body>
+	<script type="text/javascript">
+        (function () {
+            var arr = generateArray(10000), ascending = true;
+            for (var alg in sorting) {
+                if (~[
+//                        "bubble",
+//                        "select",
+//                        "insert",
+//                        "heap",
+//                        "shell",
+//                        "merge",
+//                        "quick"
+                    ].indexOf(alg)) continue;
+                var myArr = arr.slice(0);
+                console.time(alg);
+                sorting[alg](myArr, ascending);
+                console.timeEnd(alg);
+                isOrdered(myArr, ascending) || console.error("Sorting with [%s] failed:(", alg);
+            }
+
+            function isOrdered(arr, ascending) {
+                var isOrdered = true;
+                for (var i = 1; i < arr.length; i++) {
+                    var res = arr[i - 1] - arr[i];
+                    if (res !== 0 && res > 0 === ascending) {
+                        isOrdered = false;
+                        break;
+                    }
+                }
+                return isOrdered;
+            }
+
+            function generateArray(length) {
+                var arr = [];
+                for (var i = 0; i < length; i++) {
+                    arr.push(Math.round(Math.random() * length * 10));
+                }
+                return arr;
+            }
+        })();
+
+        (function () {
+            var input = "keep calm and carry on";
+            var msg = base64.encode(input);
+            console.log("Input: %s", input);
+            console.log("Encoded: %s", msg);
+            console.log("Decoded: %s", base64.decode(msg));
+        })();
+
+	</script>
+</body>
+</html>
