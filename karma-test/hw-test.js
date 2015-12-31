@@ -1,7 +1,7 @@
 /**
  * Created by Chris, Z on 12/30/2015 8:03 AM.
  */
-describe("Hello World example", function () {
+describe("Hello World Example", function () {
 
     beforeEach(module("myApp"));
 
@@ -14,8 +14,9 @@ describe("Hello World example", function () {
             $scope: scope
         });
     }));
-    it('says hello world!', function () {
-        expect(scope.greeting).toEqual("Hello world!");
+
+    it("says hello world~", function () {
+        expect(scope.greeting).toEqual("Hello World~");
     });
 
 });
