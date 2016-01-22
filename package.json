@@ -1,27 +1,22 @@
 {
-  "name": "karma-seed",
+  "name": "ChrisZ-B612.github.io",
   "version": "1.0.0",
-  "description": "",
+  "description": "Hey, Open Source World, I'm coming~",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
   "scripts": {
-    "test": "karma start karma.conf.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "devDependencies": {
-    "angular-mocks": "^1.4.8",
-    "chai": "^3.4.1",
-    "jasmine-core": "^2.2.0",
-    "karma": "^0.12.31",
-    "karma-chai": "^0.1.0",
-    "karma-chrome-launcher": "^0.1.7",
-    "karma-coverage": "^0.5.3",
-    "karma-fixture": "^0.2.5",
-    "karma-html2js-preprocessor": "^0.1.0",
-    "karma-jasmine": "^0.3.5",
-    "karma-mocha": "^0.2.1",
-    "karma-phantomjs-launcher": "^0.2.2",
-    "mocha": "^2.3.4",
-    "phantomjs": "^1.9.19"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChrisZ-B612/ChrisZ-B612.github.io.git"
   },
-  "dependencies": {
-    "angular": "^1.4.8"
-  }
+  "keywords": [],
+  "author": "Chris, Z",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChrisZ-B612/ChrisZ-B612.github.io/issues"
+  },
+  "homepage": "https://github.com/ChrisZ-B612/ChrisZ-B612.github.io#readme"
 }
