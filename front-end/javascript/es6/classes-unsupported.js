@@ -45,4 +45,3 @@ class apple extends fruit {
 }
 
 var app = new apple("Fuji", "red");
-//TODO:: Tests failed

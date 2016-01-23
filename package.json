@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "Hey, Open Source World, I'm coming~",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "angular": "^1.4.0",
+    "core-js": "^2.0.3"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
