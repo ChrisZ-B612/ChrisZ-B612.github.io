@@ -1,7 +1,7 @@
 /**
  * Created by Chris, Z on 12/30/2015 8:03 AM.
  */
-describe("Hello World Example", function () {
+xdescribe("Hello World Example", function () {
 
     beforeEach(module("myApp"));
 
