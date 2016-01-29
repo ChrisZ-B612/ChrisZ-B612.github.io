@@ -7,7 +7,7 @@ module.exports = {
     karma: {
         browsers: ['PhantomJS'],
         preprocessors: {
-            'karma-test/fixtures/**/*.fixture.html': ['html2js']
+            'karma-test/fixture/*.fixture.html': ['html2js']
         },
         reporters: ['progress'],
         autoWatch: true,

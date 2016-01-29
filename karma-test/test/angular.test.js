@@ -10,13 +10,18 @@ describe("Hello World Example", function () {
 
     beforeEach(inject(function ($rootScope, $controller) {
         scope = $rootScope.$new();
-        HelloWorldController = $controller('HelloWorldController', {
+        HelloWorldController = $controller("HelloWorldController", {
             $scope: scope
         });
     }));
 
-    it("says hello world~", function () {
+    it("says 'Hello World~'", function () {
         expect(scope.greeting).toEqual("Hello World~");
     });
+
+    it("just for fun", function () {
+        expect(scope.man).toBe(true);
+        expect(scope.man).toBeTruthy();
+    })
 
 });

@@ -1,76 +1,79 @@
 // Karma configuration
-// Generated on Mon Jan 04 2016 20:42:16 GMT+0800 (China Standard Time)
+// Generated on Fri Jan 29 2016 08:01:49 GMT+0800 (China Standard Time)
 
-var appConfig = require('./karma-config');
+var appConfig = require('./karma-test/config');// Not for Windows
 
-module.exports = function (config) {
-    config.set({
+module.exports = function(config) {
+  config.set({
 
-        // base path that will be used to resolve all patterns (eg. files, exclude)
-        basePath: '',
-
-
-        // frameworks to use
-        // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: ['jasmine', 'fixture'],
+    // base path that will be used to resolve all patterns (eg. files, exclude)
+    basePath: '',
 
 
-        // list of files / patterns to load in the browser
-        files: [
-            'node_modules/angular/angular.min.js',
-            'node_modules/angular-mocks/angular-mocks.js',
-            'karma-test/**/*.js',
-            {
-                pattern: "karma-test/fixtures/**/*.fixture.html"
-            }
-        ],
+    // frameworks to use
+    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+    frameworks: ['jasmine', 'fixture'],
+    //frameworks: ['mocha', 'chai', 'fixture'],
 
 
-        // list of files to exclude
-        exclude: [],
+    // list of files / patterns to load in the browser
+    files: [
+      'node_modules/angular/angular.min.js',
+      'node_modules/angular-mocks/angular-mocks.js',
+      'karma-test/fixture/*.fixture.html',
+      'karma-test/src/*.js',
+      'karma-test/test/*.test.js'
+    ],
 
 
-        // preprocess matching files before serving them to the browser
-        // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-        preprocessors: appConfig.karma.preprocessors,
+    // list of files to exclude
+    exclude: [
+    ],
 
 
-        // test results reporter to use
-        // possible values: 'dots', 'progress'
-        // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: appConfig.karma.reporters,
+    // preprocess matching files before serving them to the browser
+    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+    //preprocessors: {'src/*.js': 'coverage'},
+    preprocessors: {
+        'karma-test/fixture/*.fixture.html': ['html2js']
+    },
 
 
-        // web server port
-        port: 9876,
+    // test results reporter to use
+    // possible values: 'dots', 'progress'
+    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
+    //reporters: ['progress', 'coverage'],
+    reporters: ['progress'],
 
 
-        // enable / disable colors in the output (reporters and logs)
-        colors: true,
+    // web server port
+    port: 9876,
 
 
-        // level of logging
-        // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-        logLevel: config.LOG_INFO,
+    // enable / disable colors in the output (reporters and logs)
+    colors: true,
 
 
-        // enable / disable watching file and executing tests whenever any file changes
-        autoWatch: appConfig.karma.autoWatch,
+    // level of logging
+    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+    logLevel: config.LOG_INFO,
 
 
-        // start these browsers
-        // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: appConfig.karma.browsers,
+    // enable / disable watching file and executing tests whenever any file changes
+    autoWatch: true,
 
 
-        // Continuous Integration mode
-        // if true, Karma captures browsers, runs the tests and exits
-        singleRun: appConfig.karma.singleRun,
+    // start these browsers
+    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+    browsers: ['PhantomJS'],
 
 
-        // Concurrency level
-        // how many browsers should be started simultaneous
-        concurrency: Infinity
+    // Continuous Integration mode
+    // if true, Karma captures browsers, runs the tests and exits
+    singleRun: false,
 
-    })
-};
+    // Concurrency level
+    // how many browser should be started simultaneous
+    concurrency: Infinity
+  })
+}
