@@ -3,5 +3,5 @@
  */
 'use strict';
 
-var configSource = process.env.NODE_ENV || 'test';
+var configSource = process.env.NODE_ENV || 'dev';
 module.exports = require('./env/' + configSource);
