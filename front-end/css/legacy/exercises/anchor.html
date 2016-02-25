@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>anchor伪类</title>
+    <style>
+        /* 最佳声明顺序：link > visited > hover > focus > active */
+        a:link {
+            color: lightskyblue;
+            text-decoration: none;
+        }
+
+        a:visited {/* 貌似只有color有效果，其他都不行 */
+            color: lightgray;
+            font-size: 100px;
+            text-decoration: line-through;
+        }
+
+        a:hover {
+            color: skyblue;
+            font-size: 1.2em;
+            text-decoration: underline;
+        }
+
+        a:focus {/* 获取焦点和鼠标按下都算focus状态 */
+            color: deepskyblue;
+        }
+
+        a:active {/* 经常会与:focus中的属性冲突 */
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+    <a href="http://www.mi.com">mi.com</a>
+</body>
+</html>
