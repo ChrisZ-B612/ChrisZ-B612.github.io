@@ -1,4 +1,4 @@
-变量对象
+第二章：变量对象（Variable Object）
 ---
 
 ### 名词解释
@@ -7,12 +7,12 @@
 | Global Object | 全局对象，即宿主环境的根对象，在浏览器中就是window对象 |
 | Execution Context| 执行上下文，包括全局执行上下文和函数执行上下文两种 |
 | Global Execution Context| 全局执行上下文，代码执行默认先进入全局执行上下文，以下简称全局上下文 |
-| Function Execution Context | 函数执行上下文，调用函数时即进入被调函数的执行上下文，以下简称函数上下文 |
+| Function Execution Context | 函数执行上下文，调用函数时即进入函数执行上下文，以下简称函数上下文 |
 | Variable Object | 变量对象，执行上下文的一个属性，用来保存代码运行时的变量、函数等等 |
-| Activation Object | 活动对象，函数上下文的变量对象的别名 |
+| Activation Object | 活动对象，变量对象在函数上下文中的别名 |
 
 ### 变量对象
-变量对象（Variable Object，简写成VO）是执行上下文的一个属性，用来保存代码运行时的变量、函数等等。当我们声明一个变量或者函数的时候，其实就是在变量对象上添加了一个新的属性。
+变量对象（Variable Object，简写成VO）是执行上下文的一个属性，用来保存代码运行时的变量、函数等等。当我们声明一个变量或者函数的时候，本质上就是在变量对象上添加了一个新的属性。
 
 例如：
 ```js
@@ -24,12 +24,12 @@ function test(x) {
 
 test(30);
 ```
-相对应的变量对象就类似这样：
-```js
+相对应的变量对象如下所示：
+```
 // Variable object of the global context
 VO(globalContext) = {
   a: 10,
-  test: <reference to "test" function>
+  test: <reference to function>
 };
 
 // Variable object of the "test" function context
@@ -38,17 +38,20 @@ VO(test) = {
   b: 20
 };
 ```
-从语言的规范和实现上来讲，变量对象只是一个虚拟的实体，并不是一个真正的JavaScript对象。实际上，执行上下文中的变量对象的名称和初始化结构都不太一样。在ES5中, 变量对象的概念被替换成了*lexical environments model*。
+从语言的规范和实现上来讲，变量对象只是一个虚拟的实体，并不是一个真正的JavaScript对象。在真正的实现中，执行上下文中的变量对象的名称和初始化结构都不太一样。
 
-函数上下文中的变量对象无法直接访问。但是在全局上下文中，变量对象就是全局对象，所以在全局上下文中可以通过全局对象来访问变量对象，并且全局上下文中的*this*就指向全局对象，所以在全局上下文中：`变量对象 === 全局对象 === this`。
+函数上下文中的变量对象无法直接访问。但是全局上下文中的变量对象就是全局对象。所以在全局上下文中，可以通过全局对象来访问变量对象，并且由于全局上下文中的*this*指针就指向全局对象，所以在全局上下文中：`this === 全局对象 === 变量对象`。
+
+在ES5中, 变量对象的概念被替换成了*lexical environments model*。
 
 ### 全局对象
-#### 定义
+首先我们来看看全局对象的定义：
 > Global object is the object which is created before entering any execution context; this object exists in the single copy, its properties are accessible from any place of the program, the life cycle of the global object ends with program end.
 
-#### 初始化
-初始化全局对象时，首先会添加`Math`、`String`、`Date`、`parseInt`等等属性到全局对象上。如果是在BOM中，还会添加引用全局对象自身的window属性到全局对象上，初始化后的全局对象就类似这样：
-```js
+从定义中我们可以看到，全局对象在程序运行的整个生命周期中只有一份，在程序开始执行前被创建（里面的细节比较多，后面会慢慢讲解），执行结束时消亡。绑定在全局对象上的属性被称为全局变量，全局变量在程序的任何地方都可以访问得到，所以一定要谨慎使用。
+
+初始化时，`Math`、`String`、`Date`、`parseInt`等属性会被添加到全局对象上。如果是在BOM中，还会添加引用全局对象自身的window属性，BOM中初始化后的全局对象如下所示：
+```
 global = {
 	Math: <...>,
     String: <...>
@@ -127,7 +130,7 @@ function test(a, b) {
 test(10); // call
 ```
 在进入test函数的执行上下文时，它的活动对象被初始化成这样：
-```js
+```
 AO(test) = {
   a: 10,
   b: undefined,
@@ -140,7 +143,7 @@ AO(test) = {
 
 #### 代码运行阶段
 进入到这个阶段，代码才开始真正的执行。上面示例中的活动对象AO(test)在本阶段完成后会被修改成这样：
-```js
+```
 AO['c'] = 10;
 AO['e'] = <reference to FunctionExpression "_e">;
 ```
@@ -162,7 +165,7 @@ b = 10;
 var a = 20;
 ```
 这一切都跟变量对象有关。我们从[代码执行的两个阶段](#代码的执行)来看一看。首先是[进入执行上下文阶段](#进入执行上下文阶段)：
-```js
+```
 VO = {
   a: undefined
 };
@@ -207,4 +210,7 @@ alert(delete a); // true
 
 alert(window.a); // undefined
 ```
-一些浏览器的debug工具就是使用eval来运行你的代码（例如Firebug），在这些debug工具中通过var声明的变量没有`{DontDelete}`属性，所以可以通过delete操作如删除它们。
+一些浏览器的debug工具就是使用eval来运行你的代码（例如Firebug），在这些debug工具中通过var声明的变量没有`{DontDelete}`属性，所以可以通过delete操作符删除它们。
+
+### 参考资料
+[ECMA-262-3 in detail. Chapter 2. Variable object.](http://dmitrysoshnikov.com/ecmascript/chapter-2-variable-object/)

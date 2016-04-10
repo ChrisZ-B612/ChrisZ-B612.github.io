@@ -9,10 +9,10 @@ JavaScript code has 3 run environments:
 
 ==Each function call creates a new Execution Context==
 #### Execution Context Stack
-The JavaScript interperter is ==single-threaded==, which means only one task can be executed one time.
+The JavaScript interpreter is ==single-threaded==, which means only one task can be executed at a time.
 ![An abstract view of a single-threaded stack](http://davidshariff.com/blog/wp-content/uploads/2012/06/ecstack.jpg)
 
-Below is an example of a recursive function and the its execution stack:
+Below is an example of a recursive function and its execution stack:
 ```js
 (function foo (i) {
     if (i === 3) {
@@ -23,7 +23,8 @@ Below is an example of a recursive function and the its execution stack:
     }
 }(0));
 ```
-![The code simply calls itself 3 times, incrementing the value of i by 1. Each time the function foo is called, a new execution context is created. Once a context has finished executing, it pops off the stack and control returns to the context below it until the global context is reached again.](http://davidshariff.com/blog/wp-content/uploads/2012/06/es1.gif)
+![](http://davidshariff.com/blog/wp-content/uploads/2012/06/es1.gif)
+The code simply calls itself 3 times, incrementing the value of i by 1. Each time the function foo is called, a new execution context is created. Once a context has finished executing, it pops off the stack and control returns to the context below it until the global context is reached again.
 
 #### Execution Context in Detail
 Every call to an execution context creation has 2 stages:
@@ -57,7 +58,7 @@ A closure, as Crockford says, is simply:
 * Circular References
 
 #### Summary
-It's simple.
+It's just a start...
 
 #### References
 [What is the Execution Context & Stack in JavaScript?](http://davidshariff.com/blog/what-is-the-execution-context-in-javascript/)
