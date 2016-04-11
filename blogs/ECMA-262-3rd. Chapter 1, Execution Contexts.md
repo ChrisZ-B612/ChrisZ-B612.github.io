@@ -1,18 +1,23 @@
 第一章：执行上下文（Execution Context）
 ---
 
-### 前言
-在本文中，我们将会介绍ECMAScript中的执行上下文（Execution Context）以及与之相关联的不同类型的可执行代码（Executable Code）。
+### 前言（Preface）
+在本文中，我们将会介绍ECMAScript中的执行上下文（Execution Context），以及与之关系密切的不同类型的可执行代码（Executable Code）。
 
-### 定义
+### 格式约定（Notational Convention）
+本文中出现的==类似这样带背景色的部分==是我个人的分析和理解，不保证其完全正确，仅供参考。
+
+### 定义（Definition）
 执行上下文的定义如下：
 > Execution context (abbreviated form — EC) is the abstract concept used by ECMA-262 specification for typification and differentiation of an executable code.
 
-ECMA标准并没有从实现的角度定义EC具体的结构和类型，这个问题留给了实现ECMA标准的ECMAScript引擎的开发者们。
+从定义中我们可以看出，EC是一个虚构的概念，==引入这个概念的主要目的是为了更好地区分和描述不同类型的可执行代码==。ECMA标准并没有从实现的角度明确定义EC的结构和类型，这个问题留给了实现ECMA标准的ECMAScript引擎的开发者们。
 
-从逻辑上来讲，一系列活动的EC构成了一个栈，我们姑且称它为**ECStack**。位于栈底的永远是全局上下文，而栈顶保存的是当前活动上下文。每当调用一个函数的时候（无论这个函数是被递归调用，还是被作为构造器调用），编译器都会创建一个新的、与被调函数相关联的EC，并将其压入到ECStack中。随着程序流进入各种类型的EC和执行结束退出，ECStack也相应地执行着进栈和出栈的操作。
+从逻辑上来讲，一系列活动的EC构成了一个栈，我们姑且称它为**ECStack**。位于栈底的永远是全局上下文，而栈顶保存的是当前活动上下文。每当调用一个函数的时候（无论这个函数是被递归调用，还是被作为构造函数调用），编译器都会创建一个新的、与被调函数相关联的EC，并将其压入到ECStack中成为当前活动上下文。随着代码的执行，程序流不停地进入（调用函数）和离开（函数执行结束）各种类型的EC，ECStack也相应地不停地执行着进栈和出栈的操作。
 
-### 可执行代码的类型
+### 可执行代码的类型（Types of Executable Code）
+ECMA标准中定义了三种类型的可执行代码，分别是：
+
 #### 全局代码（Global code）
 刚开始执行外部加载的js文件或者`<script>...</script>`标签中包含的代码时，首先处理的就是全局代码。全局代码并不包含任何函数内部的代码。程序刚开始执行时的ECStack类似这样：
 ```
