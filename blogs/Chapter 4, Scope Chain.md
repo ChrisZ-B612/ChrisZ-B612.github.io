@@ -4,7 +4,7 @@
 ### 定义
 > Scope chain is related with an execution context a chain of variable objects which is used for variables lookup at identifier resolution.
 
-### 重点
+### 重点摘要
 * The scope chain of a function context is **created at function call** and consists of the activation object and the internal [\[Scope\]] property of this function.
 
 * Function life cycle is divided into a stage of creation and a stage of activation (call).
