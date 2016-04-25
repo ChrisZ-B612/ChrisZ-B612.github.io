@@ -3,8 +3,7 @@
 
 ### 定义
 > this is a property of the execution context. It’s a special object in which context a code is executed.
-
-```
+```js
 activeExecutionContext = {
   VO: {...},
   this: thisValue
@@ -12,15 +11,13 @@ activeExecutionContext = {
 ```
 
 ### 重点摘要
-* this is directly related to the type of executable code of the context. The value is determined on entering the context and is immutable while the code is running in the context.
+* *this* is directly related to the type of executable code of the context. The value is determined on entering the context and is immutable while the code is running in the context, it is not possible to assign a new value to it since *this* is not a variable.
 
-* In the global code, this value is always the global object itself.
+* In the global code, *this* value is always the global object itself.
 
-* The first (and, probably, the main) feature of this value in this type of code(in function code) is that here it is not statically bound to a function.
+* The first (and, probably, the main) feature of *this* value in function code is that here it is not statically bound to a function.
 
-* However, at runtime of the code this value is immutable, i.e. it is not possible to assign a new value to it since this is not a variable.
-
-* It is necessary to understand and remember this important point in order to be able to determine this value in any context without any problems. **Exactly the form of a call expression**, i.e. the way of calling the function, influences this value of a called context and nothing else.
+* It is necessary to understand and remember this important point in order to be able to determine *this* value in any context without any problems. Exactly the form of a call expression, the way of calling the function, influences *this* value of a called context.
 
 * Using pseudo-code the value of Reference type can be represented as an object with two properties: base (i.e. object to which a property belongs) and a propertyName in this base:
 ```js
@@ -68,7 +65,7 @@ function GetValue(value) {
 
 * The activation object always returns *this* value as null, consequencely, to global object.
 
-* When function called as the constructor, the new operator calls the internal [[Construct]] method of the A function which, in turn, after object creation, calls the internal [[Call]] method, all the same function A, having provided as this value newly created object.
+* When function called as the constructor, the new operator calls the internal [[Construct]] method of the function which, in turn, after object creation, calls the internal [[Call]] method, all the same function, having provided as *this* value newly created object.
 
 ### 参考资料
 [ECMA-262-3 in detail. Chapter 3. This.](http://dmitrysoshnikov.com/ecmascript/chapter-3-this/)
