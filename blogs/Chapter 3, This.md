@@ -27,7 +27,7 @@ var valueOfReferenceType = {
 };
 ```
 
-* Value of Reference type can be only in two cases:
+* The value of Reference type can be only in two cases:
   1. when we deal with an identifier;
   2. or with a property accessor.
 
