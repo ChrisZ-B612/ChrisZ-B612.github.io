@@ -28,12 +28,6 @@ nav {
 }
 
 /* Extend/Inheritance */
-.message {
-  border: 1px solid #ccc;
-  padding: 10px;
-  color: #333;
-}
-
 .success {
   @extend .message;
   border-color: green;

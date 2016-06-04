@@ -2,7 +2,7 @@
 ---
 
 ### 前言（Preface）
-在本文中，我们将会介绍ECMAScript中的执行上下文（Execution Context），以及与之关系密切的不同类型的可执行代码（Executable Code）。
+在本文中，我们将会介绍ECMAScript中的执行上下文（Execution Context），以及相关的不同类型的可执行代码（Executable Code）。
 
 ### 定义（Definition）
 执行上下文的定义如下：
