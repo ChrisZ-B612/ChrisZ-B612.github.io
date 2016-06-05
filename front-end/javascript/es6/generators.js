@@ -1,11 +1,11 @@
 /**
  * Created by Chris, Z on 2016/1/23 16:37.
  */
-var fibonacci = {
+let fibonacci = {
     [Symbol.iterator]: function*() {
-        var pre = 0, cur = 1;
+        let pre = 0, cur = 1;
         for (; ;) {
-            var temp = pre;
+            let temp = pre;
             pre = cur;
             cur += temp;
             yield cur;
@@ -13,9 +13,10 @@ var fibonacci = {
     }
 };
 
-for (var n of fibonacci) {
+let arr = [];
+for (let n of fibonacci) {
     // truncate the sequence at 1000
-    if (n > 1000)
-        break;
-    console.log(n);
+    if (n > 1000) break;
+    arr.push(n);
 }
+console.log(arr);

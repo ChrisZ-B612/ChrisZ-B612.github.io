@@ -15,10 +15,10 @@ arr.forEach(v => {
 
 console.info("Lexical this:");
 var bob = {
-    name: "Bob",
-    friends: ["apple", "banana"],
+    _name: "Bob",
+    _friends: ["apple", "banana"],
     printFriends() {
-        this.friends.forEach(friend => console.log(this.name + " knows " + friend));
+        this._friends.forEach(friend => console.log(this._name + " knows " + friend));
     }
 };
 bob.printFriends();

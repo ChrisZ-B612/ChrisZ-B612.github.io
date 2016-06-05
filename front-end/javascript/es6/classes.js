@@ -9,7 +9,7 @@ class fruit {
     }
 
     hi() {
-        return this.name;
+        return `Hi, ${this.name}`;
     }
 
     get getName() {
@@ -32,7 +32,7 @@ class apple extends fruit {
     }
 
     hi() {
-        return super.hi() + " > " + super.hi();
+        return super.hi() + `, your color is ${this.getColor}.`;
     }
 
     get getColor() {
@@ -42,6 +42,13 @@ class apple extends fruit {
     set setColor(color) {
         this.color = color;
     }
+
+    static toString() {
+        return "class apple";
+    }
 }
 
-var app = new apple("Fuji", "red");
+var fuji = new apple("Fuji", "red");
+console.log(fruit.toString());
+console.log(apple.toString());
+console.log(fuji.hi());
