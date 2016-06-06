@@ -1,5 +1,6 @@
 /**
  * Created by Chris, Z on 2016/1/23 16:19.
+ * Supported in Chrome & Firefox
  */
 "use strict";
 let fibonacci = {
@@ -15,8 +16,8 @@ let fibonacci = {
 };
 
 let arr = [];
-for (var n of fibonacci) {
+for (let n of fibonacci) {
     if (n > 1000) break;
     arr.push(n);
 }
-console.log(arr);
+console.log(`Iterator: ${arr}`);

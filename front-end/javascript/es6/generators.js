@@ -19,4 +19,4 @@ for (let n of fibonacci) {
     if (n > 1000) break;
     arr.push(n);
 }
-console.log(arr);
+console.log(`Generators: ${arr}`);

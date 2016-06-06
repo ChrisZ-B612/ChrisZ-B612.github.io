@@ -1,7 +1,8 @@
 /**
  * Created by Chris, Z on 2016/1/20 20:22.
+ * Supported in Chrome & Firefox
  */
-"use strict";// Block-scoped declarations (let, const, function, class) not yet supported outside strict mode
+"use strict";
 
 class fruit {
     constructor(name) {
@@ -9,7 +10,7 @@ class fruit {
     }
 
     hi() {
-        return `Hi, ${this.name}`;
+        return `Hi ${this.name}`;
     }
 
     get getName() {

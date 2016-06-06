@@ -1,9 +1,10 @@
 /**
  * Created by Chris, Z on 2016/1/21 11:39.
+ * Supported in Chrome & Firefox
  */
 "use strict";
-var now = Date.now;
-var eol = {
+let now = Date.now;
+let eol = {
     // __proto__
     __proto__: {toString() {return "super";}},
     // Shorthand for "now: now"

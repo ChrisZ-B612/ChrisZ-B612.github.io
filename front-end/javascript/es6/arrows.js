@@ -1,24 +1,25 @@
 /**
  * Created by Chris, Z on 2016/1/20 19:48.
+ * Supported in Chrome & Firefox
  */
-var arr = [2, 4, 6];
+let arr = [2, 4, 6];
 
-console.info("Expression bodies:");
+// Expression bodies
 console.log(arr.map(v => v + 1));
 console.log(arr.map((v, i) => v + i));
 console.log(arr.map(v => ({even: v, odd: v + 1})));
 
-console.info("Statement bodies:");
+// Statement bodies
 arr.forEach(v => {
-    console.log(v * v);
+    console.log(`v * v = ${v * v}`);
 });
 
-console.info("Lexical this:");
-var bob = {
-    _name: "Bob",
-    _friends: ["apple", "banana"],
+// Lexical this
+let bob = {
+    name: "Bob",
+    friends: ["Chris", "Steve"],
     printFriends() {
-        this._friends.forEach(friend => console.log(this._name + " knows " + friend));
+        this.friends.forEach(friend => console.log(`${this.name} knows ${friend}.`));
     }
 };
 bob.printFriends();

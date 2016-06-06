@@ -1,11 +1,12 @@
 /**
  * Created by Chris, Z on 2016/1/23 16:04.
+ * Supported in Chrome & Firefox
  */
 "use strict";
-function f() {
+(function () {
     {
         //console.log(`x = ${x}`);// ReferenceError: x is not defined
-        let x = "x-man";
+        let x = "xxx";
         {
             const y = "Chris, Z";
             //y = "foo";// TypeError: Assignment to constant variable.
@@ -21,6 +22,4 @@ function f() {
         console.log(`x = ${x}`);
         //let x = 11;// error, already declared in block
     }
-}
-
-f();
+})();
