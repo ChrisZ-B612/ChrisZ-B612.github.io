@@ -19,6 +19,6 @@ console.log(`[0, 0, 0].fill(7, 1): ${[0, 0, 0].fill(7, 1)}`);
 console.log(`[1, 2, 3].find(x => x == 3): ${[1, 2, 3].find(x => x == 3)}`);
 console.log(`[1, 2, 3].findIndex(x => x == 2): ${[1, 2, 3].findIndex(x => x == 2)}`);
 console.log(`[1, 2, 3, 4, 5].copyWithin(3, 0): ${[1, 2, 3, 4, 5].copyWithin(3, 0)}`);
-console.log(`["a", "b", "c"].entries(): ${["a", "b", "c"].entries()}`);
+console.log(`["a", "b", "c"].entries(): ${["a", "b", "c"].entries()}`);// iterator [0, "a"], [1,"b"], [2,"c"]
 console.log(`["a", "b", "c"].keys(): ${["a", "b", "c"].keys()}`);
 console.log(`["a", "b", "c"].values(): ${["a", "b", "c"].values()}`);// Supported via babel-polyfill

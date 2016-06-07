@@ -3,12 +3,12 @@
  * Supported in Chrome & Firefox
  */
 // Basic literal string creation
-console.log(`In JavaScript '\\n' is a line-feed.`);
+console.log(`This is a pretty little template string.`);
 
 // Multiple strings
-console.log(`In JavaScript this is
+console.log(`In ES5 this is
 not legal.`);
 
 // String interpolation
-let name = "Bob", time = "today";
+let name = "Chris", time = "today";
 console.log(`Hello ${name}, how are you ${time}?`);

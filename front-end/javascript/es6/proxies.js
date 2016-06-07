@@ -2,7 +2,6 @@
  * Created by Chris, Z on 2016/1/23 18:39.
  * Supported in Chrome & Firefox
  */
-"use strict";
 // Proxying a normal object
 let target1 = {};
 let handler1 = {
@@ -12,7 +11,7 @@ let handler1 = {
 };
 
 let p1 = new Proxy(target1, handler1);
-p1.world === "Hello, world!";
+console.log(`p1.world: ${p1.world}`);
 
 // Proxying a function object
 let target2 = function () {

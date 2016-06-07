@@ -33,8 +33,9 @@ class apple extends fruit {
     }
 
     hi() {
-        return super.hi() + `, your color is ${this.getColor}.`;
+        return `${super.hi()}, your color is ${this.getColor}.`;// without parentheses
     }
+
 
     get getColor() {
         return this.color;
@@ -49,7 +50,7 @@ class apple extends fruit {
     }
 }
 
-var fuji = new apple("Fuji", "red");
+var fujiApple = new apple("fuji", "red");
 console.log(fruit.toString());
 console.log(apple.toString());
-console.log(fuji.hi());
+console.log(fujiApple.hi());

@@ -1,12 +1,11 @@
 /**
  * Created by Chris, Z on 2016/1/23 18:48.
- * TODO:: Try again
+ * Supported in Chrome & Firefox
  */
 let MyClass = (function () {
 
     // module scoped symbol
-    let key = Symbol("unique");
-    typeof key === "symbol";
+    let key = Symbol("key");
     console.log(`typeof key: ${typeof key}`);
 
     function  MyClass(privateData) {
@@ -22,5 +21,5 @@ let MyClass = (function () {
     return MyClass;
 })();
 
-let c = new MyClass("hello");
-console.log(`c.unique: ${c.unique}`);
+let c = new MyClass("Hello Chris.");
+c.doStuff();

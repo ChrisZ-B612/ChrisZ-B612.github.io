@@ -9,5 +9,5 @@ console.log(`2π = ${math.sum(math.pi, math.pi)}`);
 //import {sum, pi} from "./math";
 //console.log(`2π = ${sum(pi, pi)}`);
 
-import exp, {pi, e} from "./mathplusplus";
-console.log(`e^π = ${exp(pi)}`);
+import ln, {pi, e} from "./mathplusplus";
+console.log(`2π = ${ln(e) * pi * 2}`);

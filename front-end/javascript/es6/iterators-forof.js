@@ -2,7 +2,6 @@
  * Created by Chris, Z on 2016/1/23 16:19.
  * Supported in Chrome & Firefox
  */
-"use strict";
 let fibonacci = {
     [Symbol.iterator]() {
         let pre = 0, cur = 1;

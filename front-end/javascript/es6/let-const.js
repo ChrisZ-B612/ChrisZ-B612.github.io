@@ -2,7 +2,6 @@
  * Created by Chris, Z on 2016/1/23 16:04.
  * Supported in Chrome & Firefox
  */
-"use strict";
 (function () {
     {
         //console.log(`x = ${x}`);// ReferenceError: x is not defined
@@ -11,7 +10,7 @@
             const y = "Chris, Z";
             //y = "foo";// TypeError: Assignment to constant variable.
             const z = {
-                name: "foo",
+                name: "z",
                 toString() {
                     return this.name;
                 }
@@ -20,6 +19,5 @@
             console.log(z);
         }
         console.log(`x = ${x}`);
-        //let x = 11;// error, already declared in block
     }
 })();

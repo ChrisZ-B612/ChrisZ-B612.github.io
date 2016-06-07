@@ -2,7 +2,9 @@
  * Created by Chris, Z on 2016/1/23 15:43.
  * Supported in Chrome & Firefox
  */
-// Callee-evaluated default parameter values
+"use strict";
+
+// default parameter values
 function f1(x, y = 12) {
     return x + y;
 }
@@ -15,7 +17,8 @@ function f2(x, ...y) {
 console.log(`f2(3, "hello", true): ${f2(3, "hello", true)}`);
 
 // Turn an array into consecutive arguments in a function call
+let arr = [1, 2, 3];
 function f3(x, y, z) {
     return x + y + z;
 }
-console.log(`f3(...[1, 2, 3]): ${f3(...[1, 2, 3])}`);
+console.log(`f3(...[1, 2, 3]): ${f3(...arr)}`);
