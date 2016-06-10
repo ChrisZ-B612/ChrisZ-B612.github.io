@@ -1,23 +1,24 @@
 /**
  * Created by Chris, Z on 6/5/2016 10:05 PM.
  */
-var path = require('path');
-var webpack = require('webpack');
-var modulesPath = './front-end/javascript/es6/modules/';
+var path = require("path"),
+    entryPath = "./front-end/javascript/es6/modules/";
 
 module.exports = {
-    entry: modulesPath + 'modules.js',
+    entry: {
+        modules: `${entryPath}modules.js`
+    },
     output: {
-        path: path.resolve(__dirname, modulesPath),
-        filename: 'modules.bundle.js'
+        path: path.resolve(__dirname, entryPath),
+        filename: `[name].bundle.js`
     },
     module: {
         loaders: [
             {
                 test: /\.js$/,
-                loader: 'babel-loader',
+                loader: "babel-loader",
                 query: {
-                    presets: ['es2015']
+                    presets: ["es2015"]
                 }
             }
         ]
@@ -25,5 +26,5 @@ module.exports = {
     stats: {
         colors: true
     },
-    devtool: 'source-map'
+    devtool: "source-map"
 };
