@@ -4,7 +4,7 @@
  */
 "use strict";
 
-class fruit {
+class Fruit {
     constructor(name) {
         this.name = name;
     }
@@ -22,11 +22,11 @@ class fruit {
     }
 
     static toString() {
-        return "class fruit";
+        return "class Fruit";
     }
 }
 
-class apple extends fruit {
+class Apple extends Fruit {
     constructor(name, color) {
         super(name);
         this.color = color;
@@ -46,11 +46,11 @@ class apple extends fruit {
     }
 
     static toString() {
-        return "class apple";
+        return "class Apple";
     }
 }
 
-var fujiApple = new apple("fuji", "red");
-console.log(fruit.toString());
-console.log(apple.toString());
-console.log(fujiApple.hi());
+var fuji = new Apple("fuji", "red");
+console.log(Fruit.toString());
+console.log(Apple.toString());
+console.log(fuji.hi());
