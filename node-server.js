@@ -1,16 +1,23 @@
 /**
  * Created by Chris, Z on 2016/1/13 20:00.
  */
-var http = require("http");
-var fs = require("fs");
-var url = require("url");
+"use strict";
+const http = require("http");
+const fs = require("fs");
+const url = require("url");
 
-var port = 8192;
+const port = 8192;
 
 // Create a server
-http.createServer(function (request, response) {
+http.createServer(staticFilesServer).listen(port);
+
+// Console will print the message
+console.log(`Server running at http://127.0.0.1:${port}/`);
+
+function staticFilesServer(request, response) {
+
     // Parse the request containing file name
-    var pathname = url.parse(request.url).pathname;
+    let pathname = url.parse(request.url).pathname;
 
     // Print the name of the file for which request is made.
     console.log("Request for " + pathname + " received.");
@@ -34,7 +41,5 @@ http.createServer(function (request, response) {
         // Send the response body
         response.end();
     });
-}).listen(port);
 
-// Console will print the message
-console.log(`Server running at http://127.0.0.1:${port}/`);
+}
