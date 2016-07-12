@@ -9,12 +9,7 @@ const url = require("url");
 const port = 8192;
 
 // Create a server
-http.createServer(staticFilesServer).listen(port);
-
-// Console will print the message
-console.log(`Server running at http://127.0.0.1:${port}/`);
-
-function staticFilesServer(request, response) {
+http.createServer((request, response) => {
 
     // Parse the request containing file name
     let pathname = url.parse(request.url).pathname;
@@ -27,12 +22,12 @@ function staticFilesServer(request, response) {
         if (err) {
             console.error(err);
             // HTTP Status: 404 : NOT FOUND
-            // Content Type: text/plain
+            // Content Type: text/html
             response.writeHead(404, {"Content-Type": "text/html"});
         } else {
             // Page found
             // HTTP Status: 200 : OK
-            // Content Type: text/plain
+            // Content Type: text/html
             response.writeHead(200, {"Content-Type": "text/html"});
 
             // Write the content of the file to response body
@@ -41,5 +36,13 @@ function staticFilesServer(request, response) {
         // Send the response body
         response.end();
     });
+
+    just4fun();
+
+}).listen(port);
+
+console.log(`Server running at http://localhost:${port}/`);
+
+function just4fun() {
 
 }
