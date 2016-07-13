@@ -1,5 +1,6 @@
 /**
  * Created by Chris, Z on 6/5/2016 10:05 PM.
+ * Introduction to Webpack with practical examples (http://julienrenaux.fr/2015/03/30/introduction-to-webpack-with-practical-examples/)
  */
 var path = require("path");
 

@@ -7,8 +7,8 @@ export default class Button {
     }
 
     onClick(event) {
-        event.preventDefault();
         alert(this.link);
+        event.preventDefault();
     }
 
     render(node) {
