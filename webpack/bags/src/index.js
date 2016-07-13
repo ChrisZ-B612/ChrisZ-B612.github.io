@@ -8,13 +8,12 @@ if (document.querySelectorAll("a").length) {
         const Button = require("./components/button").default;
         const button = new Button("https://www.google.com");
         button.render("a");
-    });
+    }, "button");
 }
 
-// If we have a title, render the Header component on it
 if (document.querySelectorAll("h1").length) {
     require.ensure([], () => {
         const Header = require("./components/header").default;
         new Header().render("h1");
-    });
+    }, "header");
 }

@@ -12,7 +12,8 @@ var plugins = [
     new ExtractTextPlugin('bundle.css', {allChunks: true}/* 'false' led to error */),
     new webpack.optimize.CommonsChunkPlugin({
         name:      'main', // Move dependencies to our main file
-        children:  true, // Look for common dependencies in all children,
+        //async: true, // Makes 'name' disabled
+        children:  true, // Look for common dependencies in all children
         minChunks: 2, // How many times a dependency must come up before being extracted
     })
 ];
@@ -64,7 +65,7 @@ module.exports = {
     output: {
         path:     'builds',
         filename: production ? '[name]-[hash].js' : 'bundle.js',
-        chunkFilename: '[name]-[chunkhash].js',
+        chunkFilename: '[name].bundle.js',
         publicPath: 'builds/'
     },
     plugins: plugins,
