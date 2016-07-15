@@ -17,3 +17,5 @@ if (document.querySelectorAll("h1").length) {
         new Header().render("h1");
     }, "header");
 }
+
+console.log("index.js executed.");

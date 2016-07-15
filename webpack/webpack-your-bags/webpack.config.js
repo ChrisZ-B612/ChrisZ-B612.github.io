@@ -1,28 +1,33 @@
 /**
  * Created by Chris, Z on 6/13/2016 2:07 PM.
  * Webpack your bags (https://blog.madewithlove.be/post/webpack-your-bags/)
- * webpack-dev-server --inline --hot
+ * webpack-dev-server --inline --hot (http://localhost:8080/webpack-dev-server/)
+ * http://localhost:8080/webpack-dev-server/ -> http://localhost:8080/webpack-dev-server/index.html
+ * http://localhost:8080/webpack-dev-server/bundle -> http://localhost:8080/webpack-dev-server/bundle.js
  */
 var webpack = require('webpack');
 var path = require('path');
-var CleanPlugin = require('clean-webpack-plugin');
+
+var CleanWebpackPlugin = require('clean-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+
 var production = process.env.NODE_ENV === 'production';
 
 var plugins = [
-    new ExtractTextPlugin('../bundle.css', {allChunks: true}/* 'false' led to error */),
+    new ExtractTextPlugin('bundle.css', {allChunks: true}/* 'false' led to error */),
     new webpack.optimize.CommonsChunkPlugin({
-        name:      'main', // Move dependencies to our main file
-        //async: true, // 设置async后，name的设置就失效了
+        name: 'main', // Move dependencies to our main file
+        async: 'commons', // (boolean|string)设置async后，name的设置就失效了
         children:  true, // Look for common dependencies in all children
         minChunks: 2, // How many times a dependency must come up before being extracted
-    })
+    }),
+    new CopyWebpackPlugin([{from: 'src/index.html'}])
 ];
 
 if (production) {
     plugins = plugins.concat([
-        // Cleanup the builds/ folder before compiling our final assets
-        new CleanPlugin('builds'),
+        new CleanWebpackPlugin('builds'),
 
         // This plugin looks for similar chunks and files
         // and merges them for better caching by the user
@@ -67,7 +72,7 @@ module.exports = {
         path:     'builds',
         filename: production ? '[name]-[hash].js' : 'bundle.js',
         chunkFilename: '[name].bundle.js',
-        publicPath: 'builds/'
+        //publicPath: 'builds/'
     },
     plugins: plugins,
     module: {
@@ -83,7 +88,7 @@ module.exports = {
                 loader: 'babel-loader',
                 include: path.resolve(__dirname, 'src'),
                 query: {
-                    presets: ["es2015"]
+                    presets: ['es2015']
                 }
             },
             {
