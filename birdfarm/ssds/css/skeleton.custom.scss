@@ -1,0 +1,67 @@
+@import "utils";
+
+.button,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+    height: 4rem;
+    font-size: $mobile-font-size;
+}
+
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea,
+select {
+    height: 4rem;
+    font-size: $mobile-font-size;
+    line-height: 1.5;
+}
+
+label, legend {
+    font-size: $mobile-font-size;
+    color: $font-color;
+}
+
+@media (min-width: 550px) {
+}
+
+@media (min-width: 750px) {
+}
+
+@media (min-width: 1000px) {
+
+    .button,
+    button,
+    input[type="submit"],
+    input[type="reset"],
+    input[type="button"] {
+        font-size: 1.3rem;
+        height: 38px;
+    }
+
+    input[type="email"],
+    input[type="number"],
+    input[type="search"],
+    input[type="text"],
+    input[type="tel"],
+    input[type="url"],
+    input[type="password"],
+    textarea,
+    select {
+        font-size: inherit;
+        height: 38px;
+    }
+
+    label, legend {
+        font-size: inherit;
+    }
+
+}
+
+
