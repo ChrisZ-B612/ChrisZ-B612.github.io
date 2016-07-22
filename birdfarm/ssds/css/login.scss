@@ -6,60 +6,53 @@ html, body {
 
 body {
     font-family: 'Microsoft YaHei', 'Helvetica Neue', Helvetica, sans-serif;
-    //background-image: linear-gradient(#ffffff, $bb-color);
-    background-image: url(../images/login_bg.jpg);
+    background-image: linear-gradient(#ffffff, $bb-color);
 }
 
 header {
     font-size: 8vw;
-    padding: 3rem 0 2rem;
+    padding: 8vmin 0 12vmin;
     text-align: center;
     color: $font-color;
     text-shadow: 0 0 2px lightgrey;
-    letter-spacing: 0.4rem;
+    letter-spacing: 0.1em;
 }
 
 main {
-    padding: 1rem 0;
 }
 
 .login-form {
+    .row {
+        margin-bottom: 2vmin;
+    }
+
     input[type=submit] {
-        margin-top: 2rem;
+        margin-top: 5vmin;
     }
 }
 
 footer {
     color: white;
-    font-size: 1rem;
+    font-size: 2vmin;
     text-align: center;
-    margin-top: 8rem;
+    position: fixed;
+    bottom: 1em;
+    left: 1em;
+    right: 1em;
 }
 
 @media (min-width: 550px) {
-    header {
-        font-size: 60px;
-    }
-
-    .login-form input[type=submit] {
-        margin-top: 30px;
-    }
-
-    footer {
-        font-size: 24px;
-    }
-}
-
-@media (min-width: 750px) {
 }
 
 @media (min-width: 1000px) {
     header {
-        font-size: 40px;
+        font-size: 5rem;
+        padding: 50px 0;
     }
 
     .container {
         max-width: 500px;
+        margin-top: 50px;
     }
 
     .login-form {
@@ -68,12 +61,16 @@ footer {
         box-shadow: 0 2px 10px #ee789b;
         padding: 40px 30px 60px;
 
+        .row {
+            margin-bottom: 5px;
+        }
+
         input[type=submit] {
             margin-top: 20px;
         }
     }
 
     footer {
-        font-size: 13px;
+        font-size: 1.2rem;
     }
 }

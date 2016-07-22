@@ -5,7 +5,8 @@ button,
 input[type="submit"],
 input[type="reset"],
 input[type="button"] {
-    height: 4rem;
+    height: $mobile-font-size * 2.8;
+    line-height: $mobile-font-size * 2.8;
     font-size: $mobile-font-size;
 }
 
@@ -18,9 +19,8 @@ input[type="url"],
 input[type="password"],
 textarea,
 select {
-    height: 4rem;
+    height: $mobile-font-size * 2;
     font-size: $mobile-font-size;
-    line-height: 1.5;
 }
 
 label, legend {
@@ -42,7 +42,10 @@ label, legend {
     input[type="reset"],
     input[type="button"] {
         font-size: 1.3rem;
+
+        /* Restore to keep them same with skeleton.css */
         height: 38px;
+        line-height: 38px;
     }
 
     input[type="email"],
