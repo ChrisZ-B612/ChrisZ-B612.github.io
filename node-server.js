@@ -2,38 +2,36 @@
  * Created by Chris, Z on 2016/1/13 20:00.
  */
 "use strict";
-const http = require("http");
-const fs = require("fs");
-const url = require("url");
+let http = require("http");
+var fs = require("fs");
+var url = require("url");
 
-const port = 8192;
+var port = 8192, extRegex = /\.(\w+)$/;
 
-// Create a server
+const contentTypeMapper = {
+    html: "text/html",
+    css: "text/css",
+    js: "text/javascript",
+    jpg: "image/jpeg",
+    png: "image/png"
+};
+
 http.createServer((request, response) => {
 
-    // Parse the request containing file name
-    let pathname = url.parse(request.url).pathname;
+    var pathname = url.parse(request.url).pathname;
+    var contentType = contentTypeMapper[pathname.match(extRegex)[1]];
 
-    // Print the name of the file for which request is made.
     console.log("Request for " + pathname + " received.");
 
-    // Read the requested file content from file system
     fs.readFile(pathname.substr(1), function (err, data) {
         if (err) {
             console.error(err);
-            // HTTP Status: 404 : NOT FOUND
-            // Content Type: text/html
             response.writeHead(404, {"Content-Type": "text/html"});
         } else {
-            // Page found
-            // HTTP Status: 200 : OK
-            // Content Type: text/html
-            response.writeHead(200, {"Content-Type": "text/html"});
+            response.writeHead(200, {"Content-Type": contentType});
 
-            // Write the content of the file to response body
             response.write(data.toString());
         }
-        // Send the response body
         response.end();
     });
 
