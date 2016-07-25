@@ -55,10 +55,12 @@
   },
   "dependencies": {
     "angular": "^1.4.9",
+    "express": "^4.14.0",
     "highcharts": "^4.2.5",
     "jquery": "^3.0.0",
     "lodash": "^4.13.1",
     "mustache": "^2.2.1",
+    "skeleton-css": "^2.0.4",
     "swig": "^1.4.2",
     "vue": "^1.0.26"
   },
