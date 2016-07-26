@@ -1,0 +1,39 @@
+/* Basic Styles
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+nav {
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    li {
+        display: inline-block;
+    }
+
+    a {
+        display: block;
+        padding: 6px 12px;
+        text-decoration: none;
+    }
+}
+
+/* Mixins
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
+
+/* Variables
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+$primary-color: green;
+$base-font-size: 62.5%;
+
+.message {
+    border: 1px solid #ccc;
+    padding: 10px;
+    color: #333;
+}
