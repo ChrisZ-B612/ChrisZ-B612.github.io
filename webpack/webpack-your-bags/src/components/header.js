@@ -7,7 +7,7 @@ export default class Header {
     render(node) {
         const text = $(node).text();
 
-        $(node).html(
+        $(node).replaceWith(
             Mustache.render(template, {text})
         );
     }

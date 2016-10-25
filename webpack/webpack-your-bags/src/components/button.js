@@ -12,10 +12,10 @@ export default class Button {
     }
 
     render(node) {
-        const text = $(node).text();
+        const text = $(node).text(), link = $(node).attr("href");
 
-        $(node).html(
-            Mustache.render(template, {text})
+        $(node).replaceWith(
+            Mustache.render(template, {text, link})
         );
 
         $(".button").click(this.onClick.bind(this));

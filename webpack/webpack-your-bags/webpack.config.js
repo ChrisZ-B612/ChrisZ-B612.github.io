@@ -9,26 +9,25 @@ var webpack = require('webpack');
 var path = require('path');
 
 var CleanWebpackPlugin = require('clean-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-var production = process.env.NODE_ENV === 'production';
+var production = process.env.NODE_ENV === 'production', hashLen = 8;
 
 var plugins = [
-    new ExtractTextPlugin('bundle.css', {allChunks: true}/* 'false' led to error */),
+    new CleanWebpackPlugin('builds'),
+    new ExtractTextPlugin(production ? `[name]-[contenthash:${hashLen}].css` : 'bundle.css', {allChunks: true, disable: false}),
     new webpack.optimize.CommonsChunkPlugin({
         name: 'main', // Move dependencies to our main file
-        async: 'commons', // (boolean|string)设置async后，name的设置就失效了
-        children:  true, // Look for common dependencies in all children
-        minChunks: 2, // How many times a dependency must come up before being extracted
+        async: 'commons', // (boolean|string)
+        children: true, // Look for common dependencies in all children
+        minChunks: 2 // How many times a dependency must come up before being extracted
     }),
     new CopyWebpackPlugin([{from: 'src/index.html'}])
 ];
 
 if (production) {
     plugins = plugins.concat([
-        new CleanWebpackPlugin('builds'),
-
         // This plugin looks for similar chunks and files
         // and merges them for better caching by the user
         new webpack.optimize.DedupePlugin(),
@@ -67,12 +66,12 @@ if (production) {
 }
 
 module.exports = {
-    entry:  './src',
+    entry:  './src',// resolved to ./src/index.js, import index.html unintentionally.
     output: {
-        path:     'builds',
-        filename: production ? '[name]-[hash].js' : 'bundle.js',
+        path: './builds',
+        filename: production ? `[name]-[hash:${hashLen}].js` : 'bundle.js',
         chunkFilename: '[name].bundle.js',
-        //publicPath: 'builds/'
+        //publicPath: '/static/'
     },
     plugins: plugins,
     module: {
@@ -84,7 +83,7 @@ module.exports = {
         ],
         loaders: [
             {
-                test: /\.js/,
+                test: /\.js$/,
                 loader: 'babel-loader',
                 include: path.resolve(__dirname, 'src'),
                 query: {
@@ -92,12 +91,12 @@ module.exports = {
                 }
             },
             {
-                test: /\.scss/,
+                test: /\.scss$/,
                 //loader: 'style!css!sass',
                 loader: ExtractTextPlugin.extract('style', 'css!sass'),// No Hot Module Replacement!!
             },
             {
-                test: /\.html/,
+                test: /\.html$/,
                 loader: 'html-loader'
             },
             {
