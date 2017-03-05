@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Filters</title>
+    <script src="../../node_modules/vue/dist/vue.min.js"></script>
+</head>
+<body>
+    <input v-model="input"/><br/>
+    <span v-text="input | reverse"></span><br/>
+    <span v-text="input | wrap 'before' 'after'"></span><br/>
+    <input v-model="money | currency-display"/><span v-text="money"></span><br/>
+    <input v-model="money | dynamic-attr input"/><span v-text="money"></span><br/>
+<script>
+    Vue.filter('reverse', function (value) {
+        return value.split('').reverse().join('');
+    });
+
+    Vue.filter('wrap', function (value, begin, end) {
+        return begin + ' ' + value + ' ' + end;
+    });
+
+    Vue.filter('currencyDisplay', {
+        read: function (value) {
+            return '$' + value.toFixed(2);
+        },
+        write: function (value) {
+            var number = +value.replace(/[^\d.]/g, '');
+            return isNaN(number) ? 0 : parseFloat(number.toFixed(2));
+        }
+    });
+
+    Vue.filter('dynamicAttr', function (money, input) {
+        return input + ', ' + money;
+    });
+
+    new Vue({
+        el: 'body',
+        data: {
+            input: '',
+            money: 100
+        }
+    })
+</script>
+</body>
+</html>

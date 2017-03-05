@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Components</title>
+    <script src="../../node_modules/vue/dist/vue.min.js"></script>
+</head>
+<body>
+<div id="example">
+    <global-component></global-component>
+    <local-component></local-component>
+    <hr/>
+    <label>parentMsg: </label><input v-model="parentMsg"/><br/><br/>
+    <child-component :child-msg="parentMsg" :child-msg-once.once="parentMsg" :child-msg-sync.sync="parentMsg"></child-component>
+</div>
+<hr/>
+
+<!-- Parent-Child Communication -->
+<template id="child-template">
+    <input v-model="msg"/>
+    <button @click="notify">Dispatch Event</button>
+</template>
+<div id="events-example">
+    <p>Message: {{messages | json}}</p>
+    <child-component v-ref:childrefid @child-msg="handleIt"></child-component>
+</div>
+<hr/>
+
+<!-- Content Distribution with Slots -->
+<div id="cdws_parent">
+    <my-component>
+        <p>This is some original content</p>
+        <p>This is some more original content</p>
+    </my-component>
+</div>
+<template id="cdws_child">
+    <h1>This is my component!</h1>
+    <slot>
+        This will only be displayed if there is no content
+        to be distributed.
+    </slot>
+</template>
+
+<script>
+    var GlobalComponent = Vue.extend({// Global Registration
+        template: '<div>A global component.</div>',
+        replace: true,
+        // Component Option Caveats: https://vuejs.org/guide/components.html#Component-Option-Caveats
+        data: function () {
+            return {name: "Chris, Z"};
+        },
+        el: function () {
+            return 'mount point';
+        }
+    });
+
+    Vue.component('global-component', GlobalComponent);
+
+    new Vue({
+        el: '#example',
+        data: {
+            parentMsg: 'parentMsg'
+        },
+        components: {
+            'local-component': {// Local Registration
+                template: '<div>A local component.</div>'
+            },
+            'child-component': {
+                props: ['childMsg', 'childMsgOnce', 'childMsgSync'],// Passing Data With Props
+                template: `<label>child default: </label><input v-model="childMsg"/><br/>
+                           <label>child once: </label><input v-model="childMsgOnce"/><br/>
+                           <label>child sync: </label><input v-model="childMsgSync"/><br/>`,
+                created: function () {
+                    console.log('this.$parent: ', this.$parent);
+                    console.log('this.$root:', this.$root);
+                }
+            }
+        },
+        ready: function () {
+            console.log('this.$children: ', this.$children);
+        }
+    });
+</script>
+
+<script>
+    var parent = new Vue({
+        el: '#events-example',
+        data: {
+            messages: []
+        },
+        methods: {
+            handleIt: function (msg) {
+                this.$emit('child-msg', msg);// Trigger events on self using $emit()
+            }
+        },
+        events: {
+            'child-msg': function (msg) {
+                if (msg.trim()) {
+                    this.messages.push(msg.trim());
+                }
+            }
+        },
+        components: {
+            'child-component': {
+                template: '#child-template',
+                data: function () {
+                    return {msg: 'hello'};
+                },
+                methods: {// Listen to events using $on()
+                    notify: function () {
+                        if (this.msg.trim()) {
+                            this.$dispatch('child-msg', this.msg);// Dispatch an event that propagates upward along the parent chain using $dispatch()
+                            this.msg = '';
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    console.log('childrefid: ', parent.$refs.childrefid/* Must be lowercase */);
+</script>
+
+<script>
+    new Vue({
+        el: '#cdws_parent',
+        components: {
+            myComponent: {
+                template: '#cdws_child'
+            }
+        }
+    })
+</script>
+</body>
+</html>

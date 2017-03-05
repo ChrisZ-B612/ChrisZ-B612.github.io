@@ -12,11 +12,11 @@
 </head>
 <body>
     <div id="el">
-        <!--<a v-bind:href.literal="/a/b/c">v-bind:href.literal</a>-->
-        <a :href.literal="/a/b/c">:href.literal</a>
-        <input v-model="newTodo" v-on:keyup.enter="addTodo" lazy/>
+        <a v-bind:href.literal="/a/b/c">v-bind:href.literal</a>
+        <a href="Hello, {{* newTodo }}">:href.literal</a>
+        <input v-model="newTodo" v-on:keyup.enter="addTodo"/>
         <span data-input="{{newTodo}}">{{newTodo | capitalize}}</span>
-        <span class="ml30">Won't Changed: {{ *newTodo }}</span>
+        <span class="ml30">Won't Changed: {{* newTodo }}</span>
         <span class="ml30">Support Html: {{{ newTodo }}}</span>
         <span class="ml30">Computed: {{{ aa }}}</span>
         <ul style="overflow: auto;">
@@ -27,8 +27,17 @@
             </li>
         </ul>
         <table>
-            <tr is="my-component" :parent-msg="newTodo"></tr>
+            <tr is="tr-comp" :parent-msg="newTodo"></tr>
         </table>
+        <slot-comp>
+            <p>This is some original content</p>
+            <p>This is some more original content</p>
+        </slot-comp>
+        <v-for-comp
+            v-for="todo of todoList"
+            :item="todo"
+            :index="$index">
+        </v-for-comp>
     </div>
     <script src="vue.js"></script>
 </body>

@@ -13,10 +13,10 @@ let {gender} = {gender: "X-Men"};
 console.log(`name1 = ${name1}, age1 = ${age1}, gender = ${gender}`);
 
 // can be used in parameter position
-function g({name: x}) {
-    console.log(x);
+function g({name = 1} = {name: 2}) {
+    console.log(`name: ${name}`);
 }
-g({name: "Chris, Z"});
+g(undefined);
 
 // Fail-soft destructuring
 let [c] = [];

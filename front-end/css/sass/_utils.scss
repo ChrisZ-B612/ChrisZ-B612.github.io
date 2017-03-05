@@ -27,13 +27,67 @@ nav {
     border-radius: $radius;
 }
 
-/* Variables
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
-$primary-color: green;
-$base-font-size: 62.5%;
-
 .message {
     border: 1px solid #ccc;
     padding: 10px;
     color: #333;
+}
+
+/* Variables
+*/
+$primary-color: green;
+$base-font-size: 62.5% !default;// set the default value
+$base-font-size: 12px;// overwrite the default value(declaring anywhere is ok)
+
+///////////////////////////////////////////
+$borderDirection: top !default;
+$baseFontSize: 12px !default;
+$baseLineHeight: 1.5 !default;
+
+
+.border-#{$borderDirection}{
+    border-#{$borderDirection}: 1px solid #ccc;
+}
+
+body{
+    font: #{$baseFontSize}/#{$baseLineHeight};
+}
+///////////////////////////////////////////
+
+
+///////////////////////////////////////////
+$linkColor: #08c #333 !default;
+
+a{
+    color:nth($linkColor, 1);
+
+    &:hover{
+        color:nth($linkColor, 2);
+    }
+}
+///////////////////////////////////////////
+
+
+///////////////////////////////////////////
+$headings: (h1: 2em, h2: 1.5em, h3: 1.2em);
+
+@each $header, $size in $headings {
+    #{$header} {
+        font-size: $size;
+    }
+}
+///////////////////////////////////////////
+
+$fontSize: 12px;
+$color: #333;
+body {
+    $fontSize: 14px;
+    $color: #fff !global;
+    font-size: $fontSize;
+    color: $color;
+}
+
+p {
+    font-size: $fontSize;
+    color: $color;
 }

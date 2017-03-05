@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Directives</title>
+    <script src="../../node_modules/vue/dist/vue.min.js"></script>
+</head>
+<body>
+<input v-model="input"/>
+<span v-global-directive="input">{{ input | uppercase}}</span>
+<local-component></local-component>
+<element-directive></element-directive>
+<script>
+    Vue.directive('global-directive', {
+        bind: function () {
+            console.log('global-directive: bind called');
+        },
+        update: function (newVal, oldVal) {
+            console.log(`global-directive: ${oldVal} -> ${newVal}`);
+        },
+        unbind: function () {
+            console.log('global-directive: unbind called');
+        }
+    });
+
+    Vue.elementDirective('element-directive', {
+        /**
+         * Element directives cannot accept arguments or expressions, but it can read the element’s attributes to determine its behavior.
+         * A big difference from normal directives is that element directives are terminal, which means once Vue encounters an element directive,
+         * it will completely skip that element - only the element directive itself will be able to manipulate that element and its children.
+         */
+    });
+
+    new Vue({
+        el: 'body',
+        data: {
+            input: 'Chris, Z'
+        },
+        components: {
+            localComponent: {
+                template: `<div v-local-directive="msg">
+                               <input v-model="msg"/>
+                               <span>{{ msg | lowercase }}</span>
+                               <div v-update-directive:hello.a.b="msg"></div>
+                               <div v-multi-values="{name: 'Chris, Z', age: 28}"></div>
+                               <div v-literal.literal="{name: 'Chris, Z', age: 28}"></div>
+                               <div v-incoming name="Chris, Z" :loc-pos="location" v-observe-obj="obj" accept-statement="obj.inner1.inner2++">
+                                   <label>Location: </label><input v-model="location"/>
+                                   <label>ObserveObj: </label><input v-model="obj.inner1.inner2"/>
+                                   <label>TwoWay: </label><input v-model="obj.inner1.inner2" v-two-way="obj.inner1.inner2"/>
+                               </div>
+                           </div>`,
+                data: function () {
+                    return {
+                        msg: 'CHRIS, Z',
+                        location: '杭州',
+                        obj: {
+                            inner1: {
+                                inner1: 1
+                            }
+                        }
+                    };
+                },
+                directives: {
+                    localDirective: {
+                        bind: function () {
+                            console.log('local-directive: bind called');
+                        },
+                        update: function (newVal, oldVal) {
+                            console.log(`local-directive: ${oldVal} -> ${newVal}`);
+                        },
+                        unbind: function () {
+                            console.log('local-directive: unbind called');
+                        }
+                    },
+                    updateDirective: function (newVal, oldVal) {
+                        this.el.innerHTML =
+                                'name - '       + this.name + '<br>' +
+                                'expression - ' + this.expression + '<br>' +
+                                'argument - '   + this.arg + '<br>' +
+                                'modifiers - '  + JSON.stringify(this.modifiers) + '<br>' +
+                                'value - '      + newVal
+                    },
+                    multiValues: function (value) {
+                        this.el.innerHTML = JSON.stringify(value);
+                    },
+                    literal: function (value) {
+                        this.el.innerHTML = value;
+                    },
+                    incoming: {
+                        params: ['name', 'locPos'],
+                        bind: function () {
+                            console.log(this.params.name);
+                        },
+                        paramWatchers: {
+                            locPos: function (value) {
+                                console.log(`locPos: ${value}`);
+                            }
+                        }
+                    },
+                    observeObj: {
+                        deep: true,
+                        update: function (value) {
+                            console.log('deep changed');
+                        }
+                    },
+                    twoWay: {
+                        twoWay: true,
+                        bind: function () {
+                            this.handler = function () {
+                                this.set(this.el.value);
+                            }.bind(this);
+                            this.el.addEventListener('input', this.handler);
+                        },
+                        unbind: function () {
+                            this.el.removeEventListener('input', this.handler);
+                        }
+                    },
+                    acceptStatement: {
+                        acceptStatement: true,
+                        update: function (fn) {
+                            fn();
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

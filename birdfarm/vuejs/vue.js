@@ -36,10 +36,22 @@ var vm = new Vue({
     destroyed() {},
     /* Components */
     components: {
-        "my-component": {
+        "tr-comp": {
             props: ["parentMsg"],
-            template: "<span>{{parentMsg}}</span>",
+            template: "<span>parentMsg: {{parentMsg}}</span>",
             replace: false
+        },
+        "slot-comp": {
+            template: `<div>
+                           <h1>This is my component!</h1>
+                           <slot>
+                               This will only be displayed if there is no content to be distributed.
+                           </slot>
+                       </div>`
+        },
+        "v-for-comp": {
+            props: ["item", "index"],
+            template: "<span class='ml30'>{{ index }}: {{ item }}</span>"
         }
     }
 

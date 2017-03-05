@@ -1,59 +1,61 @@
 /* Partials & Import */
 @import "utils";
+@import "base.css";// same as @import in css
 
 body {
-  font-size: $base-font-size;
-  color: $primary-color;
+    font-size: $base-font-size;// won't be output to generated css file
+    color: $primary-color;
 }
 
 /* Nesting */
 nav {
-  ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
 
-  li {
-    display: inline-block;
 
-    @include border-radius(5px);
-  }
+    li {
+        display: inline-block;
 
-  a {
-    display: block;
-    padding: 6px 12px;
-    text-decoration: none;
-  }
+        @include border-radius(5px);
+    }
+
+    a {
+        display: block;
+        padding: 6px 12px;
+        text-decoration: none;
+    }
 }
 
 /* Extend/Inheritance */
 .success {
-  @extend .message;
-  border-color: green;
+    @extend .message;
+    border-color: green;
 }
 
 .error {
-  @extend .message;
-  border-color: red;
+    @extend .message;
+    border-color: red;
 }
 
 .warning {
-  @extend .message;
-  border-color: yellow;
+    @extend .message;
+    border-color: yellow;
 }
 
 /* Operators */
 .container {
-  width: 1000px;
+    width: 1000px;
 }
 
 article[role="main"] {
-  float: left;
-  width: 600 / 960 * 100%;
+    float: left;
+    width: 600 / 960 * 100%;
 }
 
 aside[role="complementary"] {
-  float: right;
-  width: 300 / 960 * 100%;
+    float: right;
+    width: 300 / 960 * 100%;
 }
