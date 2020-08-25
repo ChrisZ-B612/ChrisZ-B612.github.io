@@ -38,7 +38,7 @@
   "dependencies": {
     "admin-lte": "^2.3.8",
     "express": "^4.14.0",
-    "highcharts": "^4.2.5",
+    "highcharts": "^8.2.0",
     "jquery": "^3.0.0",
     "lodash": "^4.13.1",
     "mustache": "^2.2.1",
